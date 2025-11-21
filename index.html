@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Issues in Accounting: Financial Reports Analysis & Corporate Valuation</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+        }
+
+        /* Header Section */
+        header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 60px 20px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+
+        header h1 {
+            font-size: 2.8em;
+            margin-bottom: 15px;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+        }
+
+        header p {
+            font-size: 1.2em;
+            opacity: 0.95;
+            margin-bottom: 10px;
+        }
+
+        .institution {
+            font-size: 1.1em;
+            font-weight: 600;
+            margin-top: 20px;
+            background: rgba(255,255,255,0.2);
+            padding: 12px 25px;
+            border-radius: 25px;
+            display: inline-block;
+            backdrop-filter: blur(10px);
+        }
+
+        /* Instructor Info */
+        .instructor-info {
+            background: white;
+            padding: 40px;
+            margin: 30px auto;
+            max-width: 900px;
+            border-radius: 15px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+        }
+
+        .instructor-header {
+            display: flex;
+            align-items: center;
+            gap: 30px;
+            margin-bottom: 25px;
+            flex-wrap: wrap;
+        }
+
+        .instructor-avatar {
+            width: 100px;
+            height: 100px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 3em;
+            font-weight: bold;
+        }
+
+        .instructor-details h2 {
+            color: #667eea;
+            font-size: 1.8em;
+            margin-bottom: 8px;
+        }
+
+        .instructor-details p {
+            color: #666;
+            margin: 5px 0;
+            font-size: 1.05em;
+        }
+
+        .contact-link {
+            color: #667eea;
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.3s;
+        }
+
+        .contact-link:hover {
+            color: #764ba2;
+            text-decoration: underline;
+        }
+
+        .expertise {
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%);
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 20px;
+            border-left: 5px solid #667eea;
+        }
+
+        .expertise h3 {
+            color: #667eea;
+            margin-bottom: 12px;
+            font-size: 1.1em;
+        }
+
+        .expertise p {
+            color: #555;
+            line-height: 1.8;
+        }
+
+        /* Main Container */
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* Course Overview */
+        .course-overview {
+            background: white;
+            padding: 50px 40px;
+            margin: 30px auto;
+            border-radius: 15px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+            max-width: 900px;
+        }
+
+        .course-overview h2 {
+            color: #667eea;
+            font-size: 2.2em;
+            margin-bottom: 30px;
+            text-align: center;
+            position: relative;
+            padding-bottom: 15px;
+        }
+
+        .course-overview h2::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+            border-radius: 2px;
+        }
+
+        .course-topics {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
+            margin-top: 30px;
+        }
+
+        .topic-card {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            padding: 30px;
+            border-radius: 12px;
+            border-left: 5px solid #667eea;
+            transition: transform 0.3s, box-shadow 0.3s;
+            cursor: pointer;
+        }
+
+        .topic-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 30px rgba(102, 126, 234, 0.2);
+        }
+
+        .topic-card h3 {
+            color: #667eea;
+            font-size: 1.3em;
+            margin-bottom: 12px;
+        }
+
+        .topic-card p {
+            color: #555;
+            line-height: 1.7;
+        }
+
+        /* Video Lectures Section */
+        .lectures-section {
+            background: white;
+            padding: 50px 40px;
+            margin: 30px auto;
+            border-radius: 15px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+            max-width: 900px;
+        }
+
+        .lectures-section h2 {
+            color: #667eea;
+            font-size: 2.2em;
+            margin-bottom: 30px;
+            text-align: center;
+            position: relative;
+            padding-bottom: 15px;
+        }
+
+        .lectures-section h2::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+            border-radius: 2px;
+        }
+
+        .lecture-item {
+            background: linear-gradient(135deg, #f5f7fa 0%, #e8eef5 100%);
+            padding: 30px;
+            margin-bottom: 25px;
+            border-radius: 12px;
+            border-left: 5px solid #764ba2;
+        }
+
+        .lecture-item h3 {
+            color: #764ba2;
+            font-size: 1.4em;
+            margin-bottom: 15px;
+        }
+
+        .lecture-description {
+            color: #555;
+            margin-bottom: 20px;
+            line-height: 1.8;
+        }
+
+        .video-container {
+            position: relative;
+            width: 100%;
+            padding-bottom: 56.25%;
+            height: 0;
+            overflow: hidden;
+            border-radius: 10px;
+            background: #000;
+            margin: 20px 0;
+        }
+
+        .video-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        .coming-soon {
+            background: linear-gradient(135deg, rgba(118, 75, 162, 0.1) 0%, rgba(102, 126, 234, 0.1) 100%);
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            color: #764ba2;
+            font-weight: 600;
+            margin-top: 15px;
+        }
+
+        /* Footer */
+        footer {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            text-align: center;
+            padding: 40px 20px;
+            margin-top: 50px;
+            box-shadow: 0 -10px 30px rgba(0,0,0,0.1);
+        }
+
+        footer p {
+            margin: 8px 0;
+            font-size: 0.95em;
+        }
+
+        .footer-contact {
+            margin-top: 20px;
+            font-size: 0.9em;
+            opacity: 0.9;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 2em;
+            }
+
+            .instructor-header {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .instructor-avatar {
+                margin: 0 auto;
+            }
+
+            .course-overview,
+            .lectures-section,
+            .instructor-info {
+                padding: 25px 20px;
+            }
+
+            .course-topics {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .instructor-info,
+        .course-overview,
+        .lectures-section {
+            animation: fadeIn 0.8s ease-out;
+        }
+
+        /* Icon-like elements */
+        .icon {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <h1>📊 Issues in Accounting</h1>
+        <p>The World of Financial Reports Analysis and Corporate Valuation</p>
+        <div class="institution">CLB — Center of Law and Business Studies, Ramat Gan</div>
+    </header>
+
+    <!-- Instructor Information -->
+    <div class="container">
+        <div class="instructor-info">
+            <div class="instructor-header">
+                <div class="instructor-avatar">ST</div>
+                <div class="instructor-details">
+                    <h2>Dr. Shay Tsaban, Ph.D.</h2>
+                    <p><strong>Email:</strong> <a href="mailto:shay.tsaban@gmail.com" class="contact-link">shay.tsaban@gmail.com</a></p>
+                    <p><strong>Credentials:</strong> CPA (Israel), Ph.D. in Economics</p>
+                </div>
+            </div>
+
+            <div class="expertise">
+                <h3>🎯 Areas of Expertise</h3>
+                <p>Dr. Tsaban is a Senior Lecturer specializing in <strong>Financial Accounting, Financial Analysis, and Corporate Valuation</strong>. With a multidisciplinary academic background combining finance, accounting, and economics, he brings both rigorous theoretical knowledge and practical insights to the study of corporate finance. His research focuses on behavioral finance, corporate decision-making, and the intersection of financial performance with stakeholder well-being. He holds a CPA license and has extensive professional experience in accounting, auditing, and financial analysis. Dr. Tsaban is committed to making complex financial concepts accessible and engaging for students, helping them develop critical thinking skills in interpreting financial statements and evaluating business value.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Course Overview -->
+    <div class="container">
+        <div class="course-overview">
+            <h2>Course Overview</h2>
+            <p style="text-align: center; color: #666; margin-bottom: 30px; font-size: 1.05em;">
+                This course provides a comprehensive exploration of financial statement analysis and corporate valuation methodologies. You'll develop practical skills in interpreting financial reports and making informed business decisions based on quantitative analysis.
+            </p>
+
+            <div class="course-topics">
+                <div class="topic-card">
+                    <div class="icon">📈</div>
+                    <h3>Financial Statements Analysis</h3>
+                    <p>Master the art of reading and interpreting balance sheets, income statements, and cash flow statements. Learn to identify trends, assess financial health, and extract meaningful insights from raw financial data.</p>
+                </div>
+
+                <div class="topic-card">
+                    <div class="icon">📊</div>
+                    <h3>Financial Ratios & Metrics</h3>
+                    <p>Explore profitability ratios, liquidity ratios, solvency metrics, and efficiency indicators. Understand how to calculate, analyze, and benchmark financial ratios to evaluate organizational performance.</p>
+                </div>
+
+                <div class="topic-card">
+                    <div class="icon">💼</div>
+                    <h3>Corporate Valuation</h3>
+                    <p>Learn fundamental valuation techniques including discounted cash flow (DCF) analysis, comparable company analysis, and precedent transactions. Apply these methods to real-world business scenarios.</p>
+                </div>
+
+                <div class="topic-card">
+                    <div class="icon">🔍</div>
+                    <h3>Financial Interpretation</h3>
+                    <p>Develop critical analysis skills to move beyond numbers. Learn to contextualize findings, understand industry dynamics, and communicate financial insights effectively to stakeholders.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Video Lectures Section -->
+    <div class="container">
+        <div class="lectures-section">
+            <h2>Lecture Recordings</h2>
+
+            <!-- Lecture 1 -->
+            <div class="lecture-item">
+                <h3>📹 Lecture 1: Fundamentals of Financial Statements Analysis & Liquidity Assessment</h3>
+                <p class="lecture-description">
+                    <strong>Date:</strong> November 17, 2025<br>
+                    This foundational lecture introduces you to the three core financial statements (Balance Sheet, Income Statement, and Cash Flow Statement), their structure, and their interconnections. We'll dive deep into liquidity ratios—including the current ratio, quick ratio, and cash ratio—and learn how to assess a company's ability to meet short-term obligations. Through practical examples and real-world case studies, you'll understand how to interpret these metrics and what they reveal about financial health.
+                </p>
+
+                <div class="video-container">
+                    <iframe src="https://www.youtube.com/embed/l2nw3YvcOPk" allowfullscreen="" loading="lazy"></iframe>
+                </div>
+            </div>
+
+            <!-- Lecture 2 -->
+            <div class="lecture-item">
+                <h3>📹 Lecture 2 - Coming Soon</h3>
+                <div class="coming-soon">🎥 Video coming soon</div>
+            </div>
+
+            <!-- Lecture 3 -->
+            <div class="lecture-item">
+                <h3>📹 Lecture 3 - Coming Soon</h3>
+                <div class="coming-soon">🎥 Video coming soon</div>
+            </div>
+
+            <!-- Lecture 4 -->
+            <div class="lecture-item">
+                <h3>📹 Lecture 4 - Coming Soon</h3>
+                <div class="coming-soon">🎥 Video coming soon</div>
+            </div>
+
+            <!-- Lecture 5 -->
+            <div class="lecture-item">
+                <h3>📹 Lecture 5 - Coming Soon</h3>
+                <div class="coming-soon">🎥 Video coming soon</div>
+            </div>
+
+            <!-- Lecture 6 -->
+            <div class="lecture-item">
+                <h3>📹 Lecture 6 - Coming Soon</h3>
+                <div class="coming-soon">🎥 Video coming soon</div>
+            </div>
+
+            <!-- Lecture 7 -->
+            <div class="lecture-item">
+                <h3>📹 Lecture 7 - Coming Soon</h3>
+                <div class="coming-soon">🎥 Video coming soon</div>
+            </div>
+
+            <!-- Lecture 8 -->
+            <div class="lecture-item">
+                <h3>📹 Lecture 8 - Coming Soon</h3>
+                <div class="coming-soon">🎥 Video coming soon</div>
+            </div>
+
+            <!-- Lecture 9 -->
+            <div class="lecture-item">
+                <h3>📹 Lecture 9 - Coming Soon</h3>
+                <div class="coming-soon">🎥 Video coming soon</div>
+            </div>
+
+            <!-- Lecture 10 -->
+            <div class="lecture-item">
+                <h3>📹 Lecture 10 - Coming Soon</h3>
+                <div class="coming-soon">🎥 Video coming soon</div>
+            </div>
+
+            <!-- Lecture 11 -->
+            <div class="lecture-item">
+                <h3>📹 Lecture 11 - Coming Soon</h3>
+                <div class="coming-soon">🎥 Video coming soon</div>
+            </div>
+
+            <!-- Lecture 12 -->
+            <div class="lecture-item">
+                <h3>📹 Lecture 12 - Coming Soon</h3>
+                <div class="coming-soon">🎥 Video coming soon</div>
+            </div>
+
+            <!-- Lecture 13 -->
+            <div class="lecture-item">
+                <h3>📹 Lecture 13 - Coming Soon</h3>
+                <div class="coming-soon">🎥 Video coming soon</div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <p><strong>Issues in Accounting: Financial Reports Analysis & Corporate Valuation</strong></p>
+        <p>CLB — Center of Law and Business Studies, Ramat Gan</p>
+        <div class="footer-contact">
+            <p>Dr. Shay Tsaban, Ph.D. | CPA</p>
+            <p>📧 <a href="mailto:shay.tsaban@gmail.com" style="color: white; text-decoration: none;">shay.tsaban@gmail.com</a></p>
+            <p style="margin-top: 20px; font-size: 0.85em; opacity: 0.8;">© 2025 All rights reserved</p>
+        </div>
+    </footer>
+
+</body>
+</html>
