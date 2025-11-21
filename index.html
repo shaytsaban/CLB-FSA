@@ -342,6 +342,32 @@
             animation: fadeIn 0.8s ease-out;
         }
 
+        /* Download Button */
+        .download-button {
+            display: inline-block;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px 50px;
+            font-size: 1.3em;
+            font-weight: 700;
+            border-radius: 50px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.3);
+            border: 2px solid transparent;
+            letter-spacing: 0.5px;
+        }
+
+        .download-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(102, 126, 234, 0.4);
+            background: linear-gradient(135deg, #764ba2 0%, #667eea 100%);
+        }
+
+        .download-button:active {
+            transform: translateY(-1px);
+        }
+
         /* Icon-like elements */
         .icon {
             font-size: 2.5em;
@@ -365,7 +391,6 @@
                 <div class="instructor-details">
                     <h2>Dr. Shay Tsaban, Ph.D.</h2>
                     <p><strong>Email:</strong> <a href="mailto:shay.tsaban@gmail.com" class="contact-link">shay.tsaban@gmail.com</a></p>
-                    <p><strong>Credentials:</strong> CPA (Israel), Ph.D. in Economics</p>
                 </div>
             </div>
 
@@ -373,6 +398,19 @@
                 <h3>🎯 Areas of Expertise</h3>
                 <p>Dr. Tsaban is a Senior Lecturer specializing in <strong>Financial Accounting, Financial Analysis, and Corporate Valuation</strong>. With a multidisciplinary academic background combining finance, accounting, and economics, he brings both rigorous theoretical knowledge and practical insights to the study of corporate finance. His research focuses on behavioral finance, corporate decision-making, and the intersection of financial performance with stakeholder well-being. He holds a CPA license and has extensive professional experience in accounting, auditing, and financial analysis. Dr. Tsaban is committed to making complex financial concepts accessible and engaging for students, helping them develop critical thinking skills in interpreting financial statements and evaluating business value.</p>
             </div>
+        </div>
+    </div>
+
+    <!-- Download Materials Section -->
+    <div class="container">
+        <div style="text-align: center; margin: 50px auto; max-width: 800px;">
+            <h3 style="color: #667eea; font-size: 1.8em; margin-bottom: 15px;">📚 Looking for Course Materials?</h3>
+            <p style="color: #555; font-size: 1.05em; margin-bottom: 25px; line-height: 1.8;">
+                All course materials will be accessible immediately after each class. Simply click the button below to access lecture notes, slides, practice problems, and additional resources.
+            </p>
+            <a href="https://mypac-my.sharepoint.com/:w:/g/personal/shay_tsaban_pac_org_il/EYiDvw4DLxZMsVthfyEh1icB8tZ5NglzjpE0NFM2oiu8Ow?e=fWfHc5" target="_blank" class="download-button">
+                📥 Download Course Materials
+            </a>
         </div>
     </div>
 
@@ -510,7 +548,7 @@
         <p><strong>Issues in Accounting: Financial Reports Analysis & Corporate Valuation</strong></p>
         <p>CLB — Center of Law and Business Studies, Ramat Gan</p>
         <div class="footer-contact">
-            <p>Dr. Shay Tsaban, Ph.D. | CPA</p>
+            <p>Dr. Shay Tsaban, Ph.D.</p>
             <p>📧 <a href="mailto:shay.tsaban@gmail.com" style="color: white; text-decoration: none;">shay.tsaban@gmail.com</a></p>
             <p style="margin-top: 20px; font-size: 0.85em; opacity: 0.8;">© 2025 All rights reserved</p>
         </div>
