@@ -1,0 +1,1148 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>תרגיל מסכם - ניתוח דוחות כספיים</title>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Arial, sans-serif;
+            line-height: 1.8;
+            max-width: 950px;
+            margin: 0 auto;
+            padding: 30px;
+            background-color: #f8f9fa;
+            color: #333;
+        }
+        h1 {
+            color: #2563eb;
+            text-align: center;
+            border-bottom: 3px solid #2563eb;
+            padding-bottom: 15px;
+            margin-bottom: 30px;
+        }
+        h2 {
+            color: #1e40af;
+            margin-top: 35px;
+            border-right: 4px solid #2563eb;
+            padding-right: 15px;
+        }
+        h3 {
+            color: #3b82f6;
+            margin-top: 25px;
+        }
+        h4 {
+            color: #1e40af;
+            margin-top: 20px;
+            margin-bottom: 10px;
+        }
+        .section {
+            background: white;
+            padding: 25px;
+            border-radius: 10px;
+            margin-bottom: 25px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        .company-info {
+            background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%);
+            border-right: 5px solid #2563eb;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background: white;
+        }
+        th, td {
+            border: 1px solid #cbd5e1;
+            padding: 12px 15px;
+            text-align: center;
+        }
+        th {
+            background: #2563eb;
+            color: white;
+            font-weight: 600;
+        }
+        tr:nth-child(even) {
+            background-color: #f1f5f9;
+        }
+        tr:hover {
+            background-color: #e0f2fe;
+        }
+        .highlight {
+            background-color: #fef3c7;
+            padding: 3px 8px;
+            border-radius: 4px;
+        }
+        .formula {
+            background: #f0fdf4;
+            border: 1px solid #86efac;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 15px 0;
+            text-align: center;
+            font-size: 1.1em;
+        }
+        .formula-text {
+            font-family: 'Courier New', monospace;
+        }
+        .solution {
+            background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%);
+            border-right: 5px solid #22c55e;
+        }
+        .interpretation {
+            background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+            border-right: 5px solid #f59e0b;
+        }
+        .warning {
+            background: #fef2f2;
+            border-right: 5px solid #ef4444;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 15px 0;
+        }
+        .note {
+            background: #eff6ff;
+            border-right: 5px solid #3b82f6;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 15px 0;
+        }
+        .good {
+            color: #16a34a;
+            font-weight: bold;
+        }
+        .bad {
+            color: #dc2626;
+            font-weight: bold;
+        }
+        .neutral {
+            color: #ca8a04;
+            font-weight: bold;
+        }
+        ul, ol {
+            padding-right: 25px;
+        }
+        li {
+            margin-bottom: 10px;
+        }
+        .ratio-result {
+            font-size: 1.2em;
+            font-weight: bold;
+            color: #1e40af;
+        }
+        .calculation {
+            background: #f8fafc;
+            padding: 10px 15px;
+            border-radius: 5px;
+            margin: 10px 0;
+            border: 1px dashed #94a3b8;
+        }
+        .math {
+            direction: ltr;
+            display: inline-block;
+            unicode-bidi: embed;
+            font-family: 'Courier New', monospace;
+        }
+        .summary-box {
+            background: linear-gradient(135deg, #ede9fe 0%, #ddd6fe 100%);
+            border: 2px solid #8b5cf6;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 25px;
+        }
+        .required-item {
+            background: #fafafa;
+            border: 1px solid #e2e8f0;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 15px 0;
+        }
+        .required-item h4 {
+            margin-top: 0;
+            color: #7c3aed;
+        }
+        @media print {
+            body {
+                background: white;
+                padding: 20px;
+            }
+            .section {
+                box-shadow: none;
+                border: 1px solid #ccc;
+                page-break-inside: avoid;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<h1>🧮 תרגיל מסכם - ניתוח דוחות כספיים</h1>
+<p style="text-align: center; color: #64748b;">סוגיות נבחרות בחשבונאות | סמסטר 2026א</p>
+
+<div class="section company-info">
+    <h2>📋 רקע על החברה</h2>
+    <p>
+        <strong>חברת "נקניקי הזהב" בע"מ</strong> היא חברה ציבורית הנסחרת בבורסה, העוסקת בייצור ושיווק מוצרי בשר מעובדים. 
+        החברה פועלת בשוק הישראלי כבר למעלה מ-20 שנה ומתחרה מול מותגים מובילים בתחום.
+    </p>
+    <p>
+        בשנים האחרונות, החברה ביצעה השקעות משמעותיות בקווי ייצור חדשים ובמערכות לוגיסטיות, 
+        במטרה לשפר את יעילותה התפעולית ולהרחיב את נתח השוק שלה. מדיניות האשראי המוצהרת של החברה היא 
+        "שוטף + 30" ללקוחות, והיא נהנית מתנאי אשראי דומים מספקיה.
+    </p>
+</div>
+
+<div class="section">
+    <h2>📊 נתונים מהדוחות הכספיים</h2>
+    
+    <h3>מאזן מקוצר (באלפי ש"ח)</h3>
+    <table>
+        <tr>
+            <th>פריט</th>
+            <th>31.12.2024</th>
+            <th>31.12.2023</th>
+            <th>31.12.2022</th>
+        </tr>
+        <tr>
+            <td><strong>נכסים שוטפים</strong></td>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>מזומנים ושווי מזומנים</td>
+            <td>180</td>
+            <td>220</td>
+            <td>200</td>
+        </tr>
+        <tr>
+            <td>לקוחות וחייבים</td>
+            <td>420</td>
+            <td>350</td>
+            <td>300</td>
+        </tr>
+        <tr>
+            <td>מלאי</td>
+            <td>500</td>
+            <td>400</td>
+            <td>350</td>
+        </tr>
+        <tr>
+            <td><strong>סה"כ נכסים שוטפים</strong></td>
+            <td><strong>1,100</strong></td>
+            <td><strong>970</strong></td>
+            <td><strong>850</strong></td>
+        </tr>
+        <tr>
+            <td>רכוש קבוע, נטו</td>
+            <td>1,400</td>
+            <td>1,200</td>
+            <td>1,000</td>
+        </tr>
+        <tr>
+            <td><strong>סה"כ נכסים</strong></td>
+            <td><strong>2,500</strong></td>
+            <td><strong>2,170</strong></td>
+            <td><strong>1,850</strong></td>
+        </tr>
+        <tr>
+            <td><strong>התחייבויות שוטפות</strong></td>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>ספקים וזכאים</td>
+            <td>320</td>
+            <td>280</td>
+            <td>250</td>
+        </tr>
+        <tr>
+            <td>הלוואות לזמן קצר</td>
+            <td>280</td>
+            <td>200</td>
+            <td>150</td>
+        </tr>
+        <tr>
+            <td><strong>סה"כ התחייבויות שוטפות</strong></td>
+            <td><strong>600</strong></td>
+            <td><strong>480</strong></td>
+            <td><strong>400</strong></td>
+        </tr>
+        <tr>
+            <td>הלוואות לזמן ארוך</td>
+            <td>700</td>
+            <td>550</td>
+            <td>400</td>
+        </tr>
+        <tr>
+            <td><strong>סה"כ התחייבויות</strong></td>
+            <td><strong>1,300</strong></td>
+            <td><strong>1,030</strong></td>
+            <td><strong>800</strong></td>
+        </tr>
+        <tr>
+            <td><strong>הון עצמי</strong></td>
+            <td><strong>1,200</strong></td>
+            <td><strong>1,140</strong></td>
+            <td><strong>1,050</strong></td>
+        </tr>
+    </table>
+
+    <h3>דוח רווח והפסד מקוצר (באלפי ש"ח)</h3>
+    <table>
+        <tr>
+            <th>פריט</th>
+            <th>2024</th>
+            <th>2023</th>
+            <th>2022</th>
+        </tr>
+        <tr>
+            <td>מכירות</td>
+            <td>4,200</td>
+            <td>3,800</td>
+            <td>3,500</td>
+        </tr>
+        <tr>
+            <td>עלות המכר</td>
+            <td>(3,150)</td>
+            <td>(2,812)</td>
+            <td>(2,555)</td>
+        </tr>
+        <tr>
+            <td><strong>רווח גולמי</strong></td>
+            <td><strong>1,050</strong></td>
+            <td><strong>988</strong></td>
+            <td><strong>945</strong></td>
+        </tr>
+        <tr>
+            <td>הוצאות מכירה ושיווק</td>
+            <td>(420)</td>
+            <td>(380)</td>
+            <td>(350)</td>
+        </tr>
+        <tr>
+            <td>הוצאות הנהלה וכלליות</td>
+            <td>(210)</td>
+            <td>(190)</td>
+            <td>(175)</td>
+        </tr>
+        <tr>
+            <td><strong>רווח תפעולי</strong></td>
+            <td><strong>420</strong></td>
+            <td><strong>418</strong></td>
+            <td><strong>420</strong></td>
+        </tr>
+        <tr>
+            <td>הוצאות מימון</td>
+            <td>(98)</td>
+            <td>(68)</td>
+            <td>(44)</td>
+        </tr>
+        <tr>
+            <td><strong>רווח לפני מס</strong></td>
+            <td><strong>322</strong></td>
+            <td><strong>350</strong></td>
+            <td><strong>376</strong></td>
+        </tr>
+        <tr>
+            <td>מסים על הכנסה</td>
+            <td>(74)</td>
+            <td>(80)</td>
+            <td>(86)</td>
+        </tr>
+        <tr>
+            <td><strong>רווח נקי</strong></td>
+            <td><strong>248</strong></td>
+            <td><strong>270</strong></td>
+            <td><strong>290</strong></td>
+        </tr>
+    </table>
+
+    <h3>נתונים נוספים</h3>
+    <table>
+        <tr>
+            <th>פריט</th>
+            <th>2024</th>
+            <th>2023</th>
+            <th>2022</th>
+        </tr>
+        <tr>
+            <td>רכישות מספקים (קניות)</td>
+            <td>3,250</td>
+            <td>2,862</td>
+            <td>2,600</td>
+        </tr>
+        <tr>
+            <td>מחיר מניה בסוף השנה (ש"ח)</td>
+            <td>24</td>
+            <td>27</td>
+            <td>29</td>
+        </tr>
+        <tr>
+            <td>מספר מניות (באלפים)</td>
+            <td>100</td>
+            <td>100</td>
+            <td>100</td>
+        </tr>
+        <tr>
+            <td>דיבידנד למניה (ש"ח)</td>
+            <td>1.88</td>
+            <td>1.80</td>
+            <td>1.90</td>
+        </tr>
+    </table>
+</div>
+
+<div class="section">
+    <h2>📝 הנדרש</h2>
+    
+    <div class="required-item">
+        <h4>נדרש א' - יחסי נזילות</h4>
+        <p>חשבו את <strong>היחס השוטף</strong> ואת <strong>היחס המהיר</strong> לכל אחת מהשנים 2022-2024.</p>
+        <p>בהתבסס על הגדרות היחסים ומשמעותם הבסיסית כפי שנלמדו בקורס:</p>
+        <ul>
+            <li>האם מיחסי הנזילות עולה אינדיקציה לקשיי פירעון פוטנציאליים בטווח הקצר? הסבירו.</li>
+            <li>מה המשמעות של ערך היחס המהיר שקיבלתם ביחס ליכולת החברה לעמוד בהתחייבויותיה גם ללא מימוש המלאי?</li>
+            <li>האם חל שינוי משמעותי ביחסים לאורך זמן, ואם כן - מה עשוי להסביר אותו?</li>
+        </ul>
+    </div>
+
+    <div class="required-item">
+        <h4>נדרש ב' - יחסי איתנות פיננסית</h4>
+        <p>חשבו את <strong>יחס החוב להון העצמי</strong> ואת <strong>יחס כיסוי הריבית</strong> לכל אחת מהשנים.</p>
+        <ul>
+            <li>כיצד השתנו יחסים אלו על פני זמן?</li>
+            <li>מה חוות דעתכם בדבר הסיכון הפיננסי של החברה והשינויים בו?</li>
+            <li>האם קיימת סכנה ממשית ליכולת החברה לעמוד בתשלומי הריבית שלה? נמקו.</li>
+        </ul>
+    </div>
+
+    <div class="required-item">
+        <h4>נדרש ג' - יחסי יעילות</h4>
+        <p>חשבו את יחסי היעילות הבאים <strong>לשנים 2023 ו-2024</strong> (לא ניתן לחשב ל-2022 בהיעדר יתרות פתיחה):</p>
+        <ul>
+            <li><strong>מחזור מלאי</strong> ו<strong>ימי מלאי</strong></li>
+            <li><strong>מחזור לקוחות</strong> ו<strong>ימי לקוחות</strong></li>
+            <li><strong>מחזור ספקים</strong> ו<strong>ימי ספקים</strong></li>
+            <li><strong>מחזור המרת המזומן</strong> (Cash Conversion Cycle)</li>
+        </ul>
+        <p>לגבי כל יחס:</p>
+        <ul>
+            <li>הסבירו את משמעותו הבסיסית.</li>
+            <li>האם חל שינוי בין השנים? מה משמעותו מבחינת יעילות הניהול?</li>
+            <li>האם ימי הלקוחות תואמים את מדיניות האשראי המוצהרת של החברה?</li>
+        </ul>
+    </div>
+
+    <div class="required-item">
+        <h4>נדרש ד' - יחסי רווחיות</h4>
+        <p>חשבו את שיעורי הרווחיות הבאים לכל אחת מהשנים:</p>
+        <ul>
+            <li><strong>שיעור רווח גולמי</strong></li>
+            <li><strong>שיעור רווח תפעולי</strong></li>
+            <li><strong>שיעור רווח נקי</strong></li>
+        </ul>
+        <p>נתחו את המגמה לאורך זמן:</p>
+        <ul>
+            <li>על מה מעידה המגמה בכל אחד משיעורי הרווחיות?</li>
+            <li>מה הגורמים שיכולים להסביר את הפער בין שיעור הרווח הגולמי לשיעור הרווח התפעולי?</li>
+            <li>מה הגורם העיקרי לפער בין שיעור הרווח התפעולי לשיעור הרווח הנקי, וכיצד הוא השתנה?</li>
+        </ul>
+    </div>
+
+    <div class="required-item">
+        <h4>נדרש ה' - יחסי שוק</h4>
+        <p>חשבו לשנת 2024:</p>
+        <ul>
+            <li><strong>מכפיל הרווח</strong> (P/E Ratio)</li>
+            <li><strong>תשואת הדיבידנד</strong></li>
+            <li><strong>שיעור הקצאת הדיבידנד</strong></li>
+        </ul>
+        <p>הסבירו:</p>
+        <ul>
+            <li>מה המשמעות של מכפיל הרווח שקיבלתם? האם הוא גבוה או נמוך יחסית, ומה זה עשוי לרמז?</li>
+            <li>מה תשואת הדיבידנד מלמדת על אופי החברה ושלב הבשלות שלה?</li>
+        </ul>
+    </div>
+
+    <div class="required-item">
+        <h4>נדרש ו' - סיכום והערכה</h4>
+        <p>על בסיס כלל הניתוח שביצעתם, הציגו:</p>
+        <ul>
+            <li><strong>3 נקודות חוזק</strong> של החברה - לא רק על בסיס ערכי היחסים, אלא על בסיס הגורמים שהובילו לערכם ו/או למגמה החיובית בהם.</li>
+            <li><strong>3 נקודות חולשה</strong> של החברה - תוך התייחסות לסיבות השורש ולא רק לתוצאה המספרית.</li>
+        </ul>
+    </div>
+</div>
+
+<!-- ==================== פתרון ==================== -->
+
+<h1 style="color: #16a34a; margin-top: 60px;">✅ פתרון מלא</h1>
+
+<div class="section solution">
+    <h2>נדרש א' - יחסי נזילות</h2>
+    
+    <h3>יחס שוטף (Current Ratio)</h3>
+    <div class="formula">
+        <span class="formula-text">יחס שוטף = נכסים שוטפים ÷ התחייבויות שוטפות</span>
+    </div>
+    
+    <div class="calculation">
+        <strong>2024:</strong> <span class="math">1,100 / 600 = <span class="ratio-result">1.83</span></span><br>
+        <strong>2023:</strong> <span class="math">970 / 480 = <span class="ratio-result">2.02</span></span><br>
+        <strong>2022:</strong> <span class="math">850 / 400 = <span class="ratio-result">2.13</span></span>
+    </div>
+
+    <h3>יחס מהיר (Quick Ratio)</h3>
+    <div class="formula">
+        <span class="formula-text">יחס מהיר = (נכסים שוטפים - מלאי) ÷ התחייבויות שוטפות</span>
+    </div>
+    
+    <div class="calculation">
+        <strong>2024:</strong> <span class="math">(1,100 - 500) / 600 = 600 / 600 = <span class="ratio-result">1.00</span></span><br>
+        <strong>2023:</strong> <span class="math">(970 - 400) / 480 = 570 / 480 = <span class="ratio-result">1.19</span></span><br>
+        <strong>2022:</strong> <span class="math">(850 - 350) / 400 = 500 / 400 = <span class="ratio-result">1.25</span></span>
+    </div>
+
+    <table>
+        <tr>
+            <th>יחס</th>
+            <th>2024</th>
+            <th>2023</th>
+            <th>2022</th>
+        </tr>
+        <tr>
+            <td>יחס שוטף</td>
+            <td>1.83</td>
+            <td>2.02</td>
+            <td>2.13</td>
+        </tr>
+        <tr>
+            <td>יחס מהיר</td>
+            <td>1.00</td>
+            <td>1.19</td>
+            <td>1.25</td>
+        </tr>
+    </table>
+</div>
+
+<div class="section interpretation">
+    <h3>🔍 פרשנות יחסי נזילות</h3>
+    
+    <h4>האם קיימת אינדיקציה לקשיי פירעון בטווח הקצר?</h4>
+    <p>
+        <strong>התשובה: לא.</strong> כפי שנלמד בקורס, כל עוד היחס השוטף גבוה משמעותית מ-1, 
+        <span class="good">אין אינדיקציה לקשיי נזילות פוטנציאליים</span>. 
+        יחס שוטף של 1.83 (בשנת 2024) משמעותו שעל כל 1 ש"ח התחייבויות שוטפות יש לחברה 1.83 ש"ח נכסים שוטפים - 
+        מצב המעיד על יכולת טובה לעמוד בהתחייבויות קצרות הטווח.
+    </p>
+    
+    <h4>משמעות היחס המהיר</h4>
+    <p>
+        היחס המהיר בוחן את כושר הפירעון בהנחה שלא ניתן לממש את המלאי. 
+        יחס מהיר של <span class="highlight">1.00 בדיוק</span> משמעותו ש<strong>גם ללא המלאי</strong>, 
+        החברה מסוגלת לכסות את מלוא התחייבויותיה השוטפות. 
+        זוהי אינדיקציה חיובית - אין תלות במימוש המלאי לצורך עמידה בהתחייבויות.
+    </p>
+    <p>
+        כפי שנלמד, היחס המהיר הוא יחס "אגרסיבי" שמניח תרחיש קיצוני בו לא ניתן כלל לממש מלאי. 
+        תרחיש זה רלוונטי בעיקר לחברות עם מלאי בסיכון גבוה להתיישנות (כמו חברות אופנה). 
+        בחברת מזון כמו "נקניקי הזהב", הסיכון לאי-מימוש המלאי נמוך יחסית.
+    </p>
+
+    <h4>שינוי לאורך זמן</h4>
+    <p>
+        אמנם נרשמה ירידה עקבית בשני היחסים, אך <strong>אין בכך לבדו אינדיקציה שלילית</strong>. 
+        הסיבה לירידה: גידול מהיר יותר בהתחייבויות השוטפות (+50% בין 2022 ל-2024) לעומת הגידול בנכסים השוטפים (+29%).
+    </p>
+    <p>
+        יש לציין כי יחסי נזילות "גבוהים מדי" עשויים דווקא להעיד על בעיה - חברה שהיא דפנסיבית מדי ואינה מנצלת 
+        את נכסיה בצורה מספקת. הירידה המתונה ביחסים עשויה להעיד על ניצול יעיל יותר של המשאבים, 
+        כל עוד היחסים נותרים ברמה בטוחה - וכך הם.
+    </p>
+
+    <div class="note">
+        <strong>מסקנה:</strong> יחסי הנזילות של החברה תקינים ואינם מעלים חשש לקשיי פירעון בטווח הקצר. 
+        הירידה המתונה לאורך זמן אינה מדאיגה כל עוד היחסים נותרים מעל 1 באופן משמעותי.
+    </div>
+</div>
+
+<div class="section solution">
+    <h2>נדרש ב' - יחסי איתנות פיננסית</h2>
+    
+    <h3>יחס חוב להון עצמי (Debt to Equity)</h3>
+    <div class="formula">
+        <span class="formula-text">יחס חוב להון = סך התחייבויות ÷ הון עצמי</span>
+    </div>
+    
+    <div class="calculation">
+        <strong>2024:</strong> <span class="math">1,300 / 1,200 = <span class="ratio-result">1.08</span></span><br>
+        <strong>2023:</strong> <span class="math">1,030 / 1,140 = <span class="ratio-result">0.90</span></span><br>
+        <strong>2022:</strong> <span class="math">800 / 1,050 = <span class="ratio-result">0.76</span></span>
+    </div>
+
+    <h3>יחס כיסוי ריבית (Times Interest Earned)</h3>
+    <div class="formula">
+        <span class="formula-text">יחס כיסוי ריבית = רווח תפעולי ÷ הוצאות מימון</span>
+    </div>
+    
+    <div class="calculation">
+        <strong>2024:</strong> <span class="math">420 / 98 = <span class="ratio-result">4.29</span></span><br>
+        <strong>2023:</strong> <span class="math">418 / 68 = <span class="ratio-result">6.15</span></span><br>
+        <strong>2022:</strong> <span class="math">420 / 44 = <span class="ratio-result">9.55</span></span>
+    </div>
+
+    <table>
+        <tr>
+            <th>יחס</th>
+            <th>2024</th>
+            <th>2023</th>
+            <th>2022</th>
+            <th>מגמה</th>
+        </tr>
+        <tr>
+            <td>חוב להון עצמי</td>
+            <td>1.08</td>
+            <td>0.90</td>
+            <td>0.76</td>
+            <td>עלייה</td>
+        </tr>
+        <tr>
+            <td>כיסוי ריבית</td>
+            <td>4.29</td>
+            <td>6.15</td>
+            <td>9.55</td>
+            <td>ירידה</td>
+        </tr>
+    </table>
+</div>
+
+<div class="section interpretation">
+    <h3>🔍 פרשנות איתנות פיננסית</h3>
+    
+    <h4>שינוי ביחס החוב להון העצמי</h4>
+    <p>
+        יחס החוב להון עלה מ-0.76 ל-1.08 על פני שלוש שנים. המשמעות: בשנת 2022, על כל 1 ש"ח הון עצמי 
+        היו לחברה 0.76 ש"ח חוב; בשנת 2024 - על כל 1 ש"ח הון עצמי יש <span class="highlight">1.08 ש"ח חוב</span>.
+    </p>
+    <p>
+        העלייה ביחס מעידה על <strong>גידול בהסתמכות על מימון חיצוני</strong> (חוב) יחסית למימון עצמי. 
+        זהו שינוי במבנה ההון של החברה המגדיל את הסיכון הפיננסי הכולל. 
+        עם זאת, יחס של 1.08 אינו חריג בפני עצמו - בענפים מסוימים כמו נדל"ן מקובלים יחסים גבוהים יותר.
+    </p>
+
+    <h4>שינוי ביחס כיסוי הריבית</h4>
+    <p>
+        יחס כיסוי הריבית ירד משמעותית מ-9.55 ל-4.29. המשמעות: בשנת 2022 החברה הרוויחה פי 9.55 
+        מהוצאות הריבית שלה; בשנת 2024 היא מרוויחה "רק" פי 4.29 מהוצאות הריבית.
+    </p>
+
+    <h4>האם קיימת סכנה ליכולת לעמוד בתשלומי הריבית?</h4>
+    <p>
+        <strong>לא קיימת סכנה ממשית.</strong> יחס כיסוי ריבית של 4.29 משמעו שהרווח התפעולי מספיק 
+        לכסות את הוצאות הריבית <span class="good">יותר מ-4 פעמים</span>. 
+        גם אם יחול שחיקה מסוימת ברווחים, עדיין יישאר מרווח ביטחון נאה.
+    </p>
+    <p>
+        עם זאת, <strong>המגמה מחייבת תשומת לב</strong>: הוצאות המימון עלו מ-44 ל-98 אלפי ש"ח 
+        (יותר מפי 2), בעוד הרווח התפעולי נותר כמעט ללא שינוי. אם מגמה זו תימשך - 
+        כלומר, אם החברה תמשיך להגדיל את החוב מבלי להגדיל את הרווח התפעולי - 
+        היחס עלול להמשיך לרדת.
+    </p>
+
+    <div class="note">
+        <strong>מסקנה:</strong> הסיכון הפיננסי של החברה עלה, אך נותר בטווח סביר. 
+        החברה מימנה את צמיחתה והשקעותיה בעיקר באמצעות חוב, מה שהגדיל את המינוף. 
+        יחס כיסוי הריבית עדיין מספק כרית ביטחון נאותה, אך יש לעקוב אחר המגמה.
+    </div>
+</div>
+
+<div class="section solution">
+    <h2>נדרש ג' - יחסי יעילות</h2>
+    
+    <p><em>הערה: חישוב יחסי יעילות מחייב ממוצע יתרות, לכן ניתן לחשב רק לשנים 2023 ו-2024.</em></p>
+
+    <h3>מחזור מלאי וימי מלאי</h3>
+    <div class="formula">
+        <span class="formula-text">מחזור מלאי = עלות המכר ÷ מלאי ממוצע</span><br>
+        <span class="formula-text">ימי מלאי = 365 ÷ מחזור מלאי</span>
+    </div>
+    
+    <div class="calculation">
+        <strong>2024:</strong><br>
+        <span class="math">מלאי ממוצע = (500 + 400) / 2 = 450</span><br>
+        <span class="math">מחזור מלאי = 3,150 / 450 = <span class="ratio-result">7.00</span></span><br>
+        <span class="math">ימי מלאי = 365 / 7.00 = <span class="ratio-result">52.1 ימים</span></span>
+    </div>
+    <div class="calculation">
+        <strong>2023:</strong><br>
+        <span class="math">מלאי ממוצע = (400 + 350) / 2 = 375</span><br>
+        <span class="math">מחזור מלאי = 2,812 / 375 = <span class="ratio-result">7.50</span></span><br>
+        <span class="math">ימי מלאי = 365 / 7.50 = <span class="ratio-result">48.7 ימים</span></span>
+    </div>
+
+    <h3>מחזור לקוחות וימי לקוחות</h3>
+    <div class="formula">
+        <span class="formula-text">מחזור לקוחות = מכירות נטו ÷ לקוחות ממוצע</span><br>
+        <span class="formula-text">ימי לקוחות = 365 ÷ מחזור לקוחות</span>
+    </div>
+    
+    <div class="calculation">
+        <strong>2024:</strong><br>
+        <span class="math">לקוחות ממוצע = (420 + 350) / 2 = 385</span><br>
+        <span class="math">מחזור לקוחות = 4,200 / 385 = <span class="ratio-result">10.91</span></span><br>
+        <span class="math">ימי לקוחות = 365 / 10.91 = <span class="ratio-result">33.5 ימים</span></span>
+    </div>
+    <div class="calculation">
+        <strong>2023:</strong><br>
+        <span class="math">לקוחות ממוצע = (350 + 300) / 2 = 325</span><br>
+        <span class="math">מחזור לקוחות = 3,800 / 325 = <span class="ratio-result">11.69</span></span><br>
+        <span class="math">ימי לקוחות = 365 / 11.69 = <span class="ratio-result">31.2 ימים</span></span>
+    </div>
+
+    <h3>מחזור ספקים וימי ספקים</h3>
+    <div class="formula">
+        <span class="formula-text">מחזור ספקים = קניות ÷ ספקים ממוצע</span><br>
+        <span class="formula-text">ימי ספקים = 365 ÷ מחזור ספקים</span>
+    </div>
+    
+    <div class="calculation">
+        <strong>2024:</strong><br>
+        <span class="math">ספקים ממוצע = (320 + 280) / 2 = 300</span><br>
+        <span class="math">מחזור ספקים = 3,250 / 300 = <span class="ratio-result">10.83</span></span><br>
+        <span class="math">ימי ספקים = 365 / 10.83 = <span class="ratio-result">33.7 ימים</span></span>
+    </div>
+    <div class="calculation">
+        <strong>2023:</strong><br>
+        <span class="math">ספקים ממוצע = (280 + 250) / 2 = 265</span><br>
+        <span class="math">מחזור ספקים = 2,862 / 265 = <span class="ratio-result">10.80</span></span><br>
+        <span class="math">ימי ספקים = 365 / 10.80 = <span class="ratio-result">33.8 ימים</span></span>
+    </div>
+
+    <h3>מחזור המרת המזומן (Cash Conversion Cycle)</h3>
+    <div class="formula">
+        <span class="formula-text">מחזור המרת מזומן = ימי מלאי + ימי לקוחות - ימי ספקים</span>
+    </div>
+    
+    <div class="calculation">
+        <strong>2024:</strong> <span class="math">52.1 + 33.5 - 33.7 = <span class="ratio-result">51.9 ימים</span></span><br>
+        <strong>2023:</strong> <span class="math">48.7 + 31.2 - 33.8 = <span class="ratio-result">46.1 ימים</span></span>
+    </div>
+
+    <h3>טבלת סיכום יחסי יעילות</h3>
+    <table>
+        <tr>
+            <th>יחס</th>
+            <th>2024</th>
+            <th>2023</th>
+            <th>שינוי</th>
+        </tr>
+        <tr>
+            <td>מחזור מלאי</td>
+            <td>7.00</td>
+            <td>7.50</td>
+            <td>ירידה קלה</td>
+        </tr>
+        <tr>
+            <td>ימי מלאי</td>
+            <td>52.1</td>
+            <td>48.7</td>
+            <td>+3.4 ימים</td>
+        </tr>
+        <tr>
+            <td>מחזור לקוחות</td>
+            <td>10.91</td>
+            <td>11.69</td>
+            <td>ירידה קלה</td>
+        </tr>
+        <tr>
+            <td>ימי לקוחות</td>
+            <td>33.5</td>
+            <td>31.2</td>
+            <td>+2.3 ימים</td>
+        </tr>
+        <tr>
+            <td>מחזור ספקים</td>
+            <td>10.83</td>
+            <td>10.80</td>
+            <td>יציב</td>
+        </tr>
+        <tr>
+            <td>ימי ספקים</td>
+            <td>33.7</td>
+            <td>33.8</td>
+            <td>יציב</td>
+        </tr>
+        <tr>
+            <td><strong>מחזור המרת מזומן</strong></td>
+            <td><strong>51.9</strong></td>
+            <td><strong>46.1</strong></td>
+            <td><strong>+5.8 ימים</strong></td>
+        </tr>
+    </table>
+</div>
+
+<div class="section interpretation">
+    <h3>🔍 פרשנות יחסי יעילות</h3>
+    
+    <h4>ימי מלאי - משמעות ושינוי</h4>
+    <p>
+        <strong>משמעות:</strong> ימי המלאי מציינים כמה ימים בממוצע מחזיקה החברה במלאי עד למכירתו.
+    </p>
+    <p>
+        <strong>ניתוח:</strong> ימי המלאי עלו מ-48.7 ל-52.1 ימים. משמעות הדבר היא שהמלאי "יושב" 
+        במחסני החברה כ-3.4 ימים יותר לפני שנמכר. בחברה יצרנית בתחום המזון, עלייה זו עשויה להעיד 
+        על הצטברות מלאי - אולי בשל ירידה קלה בקצב המכירות או הגדלה מכוונת של רמות המלאי.
+    </p>
+
+    <h4>ימי לקוחות - משמעות והשוואה למדיניות</h4>
+    <p>
+        <strong>משמעות:</strong> ימי הלקוחות מציינים תוך כמה ימים בממוצע גובה החברה את חובות לקוחותיה.
+    </p>
+    <p>
+        <strong>ניתוח:</strong> ימי הלקוחות עלו מ-31.2 ל-33.5 ימים. 
+        <span class="good">מדיניות האשראי המוצהרת של החברה היא "שוטף + 30"</span>, 
+        כלומר כ-30 יום. ימי הלקוחות בפועל (33.5) קרובים מאוד למדיניות, מה שמעיד על 
+        <strong>יעילות גבייה סבירה</strong> ועמידה במדיניות האשראי.
+    </p>
+
+    <h4>ימי ספקים - משמעות</h4>
+    <p>
+        <strong>משמעות:</strong> ימי הספקים מציינים תוך כמה ימים בממוצע משלמת החברה לספקיה.
+    </p>
+    <p>
+        <strong>ניתוח:</strong> ימי הספקים נותרו יציבים סביב 33.7 ימים, בקירוב לתנאי האשראי 
+        שהחברה מקבלת מספקיה (דומים לאלו שהיא נותנת ללקוחותיה).
+    </p>
+
+    <h4>מחזור המרת המזומן - המשמעות הכוללת</h4>
+    <p>
+        <strong>משמעות:</strong> מחזור המרת המזומן מסכם את מספר הימים שהחברה צריכה לממן את פעילותה 
+        העסקית - מרגע רכישת המלאי ועד לקבלת התשלום מהלקוח, בניכוי האשראי שהיא מקבלת מספקיה.
+    </p>
+    <p>
+        <strong>ניתוח לחברה הספציפית:</strong> מחזור המרת המזומן עלה מ-46.1 ל-51.9 ימים. 
+        משמעות הדבר היא שהחברה נדרשת לממן כ-52 ימי פעילות עסקית מכספה, 
+        לעומת כ-46 ימים בשנה הקודמת.
+    </p>
+    <p>
+        העלייה במחזור נובעת בעיקר מ:
+    </p>
+    <ul>
+        <li>עלייה בימי המלאי (+3.4 ימים)</li>
+        <li>עלייה בימי הלקוחות (+2.3 ימים)</li>
+        <li>ללא שיפור מקזז בימי הספקים</li>
+    </ul>
+
+    <div class="note">
+        <strong>מסקנה:</strong> נרשמה ירידה קלה ביעילות התפעולית של החברה, המתבטאת בעלייה במחזור 
+        המרת המזומן. החברה מחזיקה מלאי זמן רב יותר וגובה מלקוחותיה מעט לאט יותר. 
+        עם זאת, ימי הלקוחות עדיין תואמים את המדיניות המוצהרת, והשינויים אינם דרמטיים.
+    </div>
+</div>
+
+<div class="section solution">
+    <h2>נדרש ד' - יחסי רווחיות</h2>
+    
+    <h3>שיעור רווח גולמי</h3>
+    <div class="formula">
+        <span class="formula-text">שיעור רווח גולמי = רווח גולמי ÷ מכירות × 100%</span>
+    </div>
+    
+    <div class="calculation">
+        <strong>2024:</strong> <span class="math">1,050 / 4,200 × 100% = <span class="ratio-result">25.0%</span></span><br>
+        <strong>2023:</strong> <span class="math">988 / 3,800 × 100% = <span class="ratio-result">26.0%</span></span><br>
+        <strong>2022:</strong> <span class="math">945 / 3,500 × 100% = <span class="ratio-result">27.0%</span></span>
+    </div>
+
+    <h3>שיעור רווח תפעולי</h3>
+    <div class="formula">
+        <span class="formula-text">שיעור רווח תפעולי = רווח תפעולי ÷ מכירות × 100%</span>
+    </div>
+    
+    <div class="calculation">
+        <strong>2024:</strong> <span class="math">420 / 4,200 × 100% = <span class="ratio-result">10.0%</span></span><br>
+        <strong>2023:</strong> <span class="math">418 / 3,800 × 100% = <span class="ratio-result">11.0%</span></span><br>
+        <strong>2022:</strong> <span class="math">420 / 3,500 × 100% = <span class="ratio-result">12.0%</span></span>
+    </div>
+
+    <h3>שיעור רווח נקי</h3>
+    <div class="formula">
+        <span class="formula-text">שיעור רווח נקי = רווח נקי ÷ מכירות × 100%</span>
+    </div>
+    
+    <div class="calculation">
+        <strong>2024:</strong> <span class="math">248 / 4,200 × 100% = <span class="ratio-result">5.9%</span></span><br>
+        <strong>2023:</strong> <span class="math">270 / 3,800 × 100% = <span class="ratio-result">7.1%</span></span><br>
+        <strong>2022:</strong> <span class="math">290 / 3,500 × 100% = <span class="ratio-result">8.3%</span></span>
+    </div>
+
+    <table>
+        <tr>
+            <th>שיעור רווח</th>
+            <th>2024</th>
+            <th>2023</th>
+            <th>2022</th>
+        </tr>
+        <tr>
+            <td>רווח גולמי</td>
+            <td>25.0%</td>
+            <td>26.0%</td>
+            <td>27.0%</td>
+        </tr>
+        <tr>
+            <td>רווח תפעולי</td>
+            <td>10.0%</td>
+            <td>11.0%</td>
+            <td>12.0%</td>
+        </tr>
+        <tr>
+            <td>רווח נקי</td>
+            <td>5.9%</td>
+            <td>7.1%</td>
+            <td>8.3%</td>
+        </tr>
+    </table>
+</div>
+
+<div class="section interpretation">
+    <h3>🔍 פרשנות יחסי רווחיות</h3>
+    
+    <h4>מגמה בשיעור הרווח הגולמי</h4>
+    <p>
+        שיעור הרווח הגולמי ירד מ-27% ל-25% על פני שלוש שנים. 
+        המשמעות: על כל 1 ש"ח מכירה, נותרים <span class="highlight">25 אגורות רווח גולמי</span> 
+        (לעומת 27 אגורות ב-2022).
+    </p>
+    <p>
+        <strong>גורמים אפשריים לירידה:</strong>
+    </p>
+    <ul>
+        <li>עלייה בעלות חומרי הגלם (בשר, תבלינים) שלא גולגלה במלואה ללקוחות</li>
+        <li>לחץ תחרותי שאילץ את החברה להוריד מחירים</li>
+        <li>שינוי בתמהיל המוצרים לטובת מוצרים עם מרווח נמוך יותר</li>
+    </ul>
+
+    <h4>הפער בין הרווח הגולמי לרווח התפעולי</h4>
+    <p>
+        הפער נותר יציב יחסית: כ-15% בכל השנים (25%-10%, 26%-11%, 27%-12%).
+    </p>
+    <p>
+        <strong>גורמים ליצירת הפער:</strong> הוצאות מכירה ושיווק והוצאות הנהלה וכלליות. 
+        הוצאות אלו (כ-630 אלפי ש"ח ב-2024) "אוכלות" את ההפרש בין הרווח הגולמי לתפעולי.
+    </p>
+    <p>
+        העובדה שהפער נשמר יציב מעידה שהחברה הצליחה לשמור על הוצאות התפעול בפרופורציה 
+        דומה למכירות, למרות הגידול בהיקף הפעילות.
+    </p>
+
+    <h4>הפער בין הרווח התפעולי לרווח הנקי - הגורם העיקרי</h4>
+    <p>
+        הפער בין שיעור הרווח התפעולי לשיעור הרווח הנקי <strong>גדל משמעותית</strong>:
+    </p>
+    <ul>
+        <li>2022: פער של 3.7% (12.0% - 8.3%)</li>
+        <li>2023: פער של 3.9% (11.0% - 7.1%)</li>
+        <li>2024: פער של 4.1% (10.0% - 5.9%)</li>
+    </ul>
+    <p>
+        <strong>הגורם העיקרי:</strong> עלייה חדה בהוצאות המימון (מ-44 ל-98 אלפי ש"ח, 
+        יותר מפי 2). הוצאות המימון משקפות את מבנה ההון של החברה - 
+        ככל שהמינוף גבוה יותר, כך הוצאות המימון גבוהות יותר ושוחקות את הרווח הנקי.
+    </p>
+
+    <div class="warning">
+        <strong>נקודה חשובה:</strong> למרות גידול של 20% במכירות (מ-3,500 ל-4,200), 
+        הרווח הנקי דווקא <u>ירד</u> ב-14.5% (מ-290 ל-248). 
+        זוהי תופעה של "צמיחה לא רווחית" - החברה גדלה בהיקף אך הרווחיות נשחקת.
+    </div>
+
+    <div class="note">
+        <strong>מסקנה:</strong> כל שיעורי הרווחיות מציגים מגמת ירידה עקבית. הגורם המרכזי לשחיקה 
+        ברווח הנקי הוא השילוב של ירידה קלה ברווח הגולמי (לחץ על המחירים/עלויות) 
+        יחד עם עלייה משמעותית בהוצאות המימון (תוצאה של הגדלת המינוף).
+    </div>
+</div>
+
+<div class="section solution">
+    <h2>נדרש ה' - יחסי שוק (2024)</h2>
+    
+    <h3>רווח למניה (EPS)</h3>
+    <div class="calculation">
+        <span class="math">רווח למניה = 248,000 / 100,000 = <span class="ratio-result">2.48 ש"ח</span></span>
+    </div>
+
+    <h3>מכפיל רווח (P/E Ratio)</h3>
+    <div class="formula">
+        <span class="formula-text">מכפיל רווח = מחיר מניה ÷ רווח למניה</span>
+    </div>
+    
+    <div class="calculation">
+        <span class="math">מכפיל רווח = 24 / 2.48 = <span class="ratio-result">9.68</span></span>
+    </div>
+
+    <h3>תשואת דיבידנד</h3>
+    <div class="formula">
+        <span class="formula-text">תשואת דיבידנד = דיבידנד למניה ÷ מחיר מניה × 100%</span>
+    </div>
+    
+    <div class="calculation">
+        <span class="math">תשואת דיבידנד = 1.88 / 24 × 100% = <span class="ratio-result">7.83%</span></span>
+    </div>
+
+    <h3>שיעור הקצאת דיבידנד</h3>
+    <div class="formula">
+        <span class="formula-text">שיעור הקצאת דיבידנד = דיבידנד למניה ÷ רווח למניה × 100%</span>
+    </div>
+    
+    <div class="calculation">
+        <span class="math">שיעור הקצאת דיבידנד = 1.88 / 2.48 × 100% = <span class="ratio-result">75.8%</span></span>
+    </div>
+
+    <table>
+        <tr>
+            <th>יחס</th>
+            <th>ערך</th>
+        </tr>
+        <tr>
+            <td>רווח למניה</td>
+            <td>2.48 ש"ח</td>
+        </tr>
+        <tr>
+            <td>מכפיל רווח</td>
+            <td>9.68</td>
+        </tr>
+        <tr>
+            <td>תשואת דיבידנד</td>
+            <td>7.83%</td>
+        </tr>
+        <tr>
+            <td>שיעור הקצאת דיבידנד</td>
+            <td>75.8%</td>
+        </tr>
+    </table>
+</div>
+
+<div class="section interpretation">
+    <h3>🔍 פרשנות יחסי שוק</h3>
+    
+    <h4>משמעות מכפיל הרווח</h4>
+    <p>
+        מכפיל רווח של 9.68 נחשב <strong>נמוך יחסית</strong>. המשמעות: משקיעים מוכנים לשלם 
+        פחות מ-10 ש"ח על כל 1 ש"ח רווח שנתי של החברה.
+    </p>
+    <p>
+        <strong>מה זה עשוי לרמז?</strong>
+    </p>
+    <ul>
+        <li><strong>פרשנות שלילית:</strong> השוק אינו צופה צמיחה משמעותית ברווחי החברה, 
+            או שיש חששות לגבי עתידה</li>
+        <li><strong>פרשנות חיובית:</strong> המניה עשויה להיות "מתומחרת בחסר" (undervalued), 
+            ומהווה הזדמנות רכישה למשקיעים</li>
+        <li><strong>אופי הענף:</strong> מכפילים נמוכים אופייניים לחברות בוגרות בענפים מסורתיים 
+            כמו תעשיית המזון, שבהן קצב הצמיחה מתון</li>
+    </ul>
+
+    <h4>משמעות תשואת הדיבידנד</h4>
+    <p>
+        תשואת דיבידנד של 7.83% היא <span class="good">גבוהה מאוד</span> 
+        (מעל 5% נחשב בדרך כלל לגבוה).
+    </p>
+    <p>
+        <strong>מה זה מלמד על החברה?</strong>
+    </p>
+    <ul>
+        <li><strong>חברה בוגרת:</strong> חברות עם תשואת דיבידנד גבוהה הן בדרך כלל חברות בוגרות 
+            ויציבות, עם תזרימי מזומנים יציבים</li>
+        <li><strong>מעט הזדמנויות צמיחה:</strong> החברה מחלקת חלק גדול מרווחיה (75.8%) 
+            במקום לשמור אותם להשקעה בצמיחה</li>
+        <li><strong>אטרקטיבית למשקיעים "סולידיים":</strong> משקיעים המחפשים הכנסה שוטפת 
+            יימשכו לתשואה כזו</li>
+    </ul>
+
+    <div class="note">
+        <strong>הערה:</strong> תשואת דיבידנד גבוהה באופן חריג עלולה לנבוע גם מירידה חדה 
+        במחיר המניה (ולא רק ממדיניות דיבידנד נדיבה). במקרה זה, מחיר המניה אכן ירד 
+        מ-29 ל-24 ש"ח (ירידה של 17%), מה שתרם לעלייה בתשואת הדיבידנד.
+    </div>
+</div>
+
+<div class="section">
+    <h2>נדרש ו' - סיכום: נקודות חוזק וחולשה</h2>
+    
+    <div class="summary-box">
+        <h3 style="color: #16a34a;">💪 נקודות חוזק</h3>
+        <ol>
+            <li>
+                <strong>יכולת צמיחה במכירות:</strong> 
+                החברה הצליחה להגדיל את המכירות ב-20% תוך שנתיים (מ-3,500 ל-4,200 אלפי ש"ח). 
+                הגורם לכך הוא ככל הנראה השקעות בהרחבת כושר הייצור (עלייה ברכוש הקבוע) 
+                ובמערך השיווק והמכירות. צמיחה זו מעידה על ביקוש למוצרי החברה ויכולת להגדיל נתח שוק.
+            </li>
+            <li>
+                <strong>מצב נזילות יציב ובטוח:</strong> 
+                יחסי הנזילות נותרו ברמה בריאה לאורך כל התקופה. היחס השוטף (1.83) והיחס המהיר (1.00) 
+                מעידים שלחברה יש יכולת טובה לעמוד בהתחייבויותיה קצרות הטווח - 
+                גם ללא צורך במימוש המלאי. יציבות זו נובעת משמירה על איזון בין גידול בנכסים שוטפים 
+                לגידול בהתחייבויות שוטפות.
+            </li>
+            <li>
+                <strong>מדיניות דיבידנד אטרקטיבית ויציבה:</strong> 
+                החברה שומרת על תשואת דיבידנד גבוהה (7.83%) ושיעור הקצאה עקבי. 
+                מדיניות זו נובעת מתזרימי מזומנים יציבים מהפעילות השוטפת, ומושכת משקיעים 
+                המחפשים הכנסה שוטפת. זהו יתרון תחרותי בגיוס הון.
+            </li>
+        </ol>
+        
+        <h3 style="color: #dc2626; margin-top: 25px;">⚠️ נקודות חולשה</h3>
+        <ol>
+            <li>
+                <strong>שחיקה ברווחיות הגולמית - לחץ על כוח התמחור:</strong> 
+                הרווח הגולמי ירד מ-27% ל-25%. הגורם העיקרי הוא ככל הנראה עלייה בעלות חומרי הגלם 
+                (עלות המכר עלתה מ-73% ל-75% מהמכירות) שלא גולגלה במלואה ללקוחות. 
+                הדבר עשוי להעיד על לחץ תחרותי בשוק המונע העלאת מחירים, 
+                או על ירידה בכוח המיקוח מול ספקים.
+            </li>
+            <li>
+                <strong>עלייה חדה בעלויות המימון - תוצאה של אסטרטגיית מימון אגרסיבית:</strong> 
+                הוצאות המימון יותר מהוכפלו (מ-44 ל-98 אלפי ש"ח) בעקבות הגדלת החוב 
+                (מ-800 ל-1,300 אלפי ש"ח). החברה בחרה לממן את ההתרחבות בעיקר בחוב ולא בהון עצמי, 
+                מה שהגדיל את המינוף ואת הוצאות המימון. כתוצאה, הרווח התפעולי נותר יציב (כ-420) 
+                אך הרווח הנקי נשחק (מ-290 ל-248).
+            </li>
+            <li>
+                <strong>ירידה ביעילות מחזור ההון החוזר:</strong> 
+                מחזור המרת המזומן עלה מ-46 ל-52 ימים. הסיבות: עלייה בימי המלאי (המלאי נשאר יותר זמן 
+                במחסנים לפני מכירתו) והתארכות קלה בימי הגבייה מלקוחות - מבלי שהחברה הצליחה 
+                להאריך את תנאי האשראי מספקיה. התוצאה היא צורך במימון נוסף לפעילות השוטפת.
+            </li>
+        </ol>
+    </div>
+    
+    <div class="note" style="margin-top: 25px;">
+        <h3>🎯 מבט כולל</h3>
+        <p>
+            "נקניקי הזהב" היא חברה בוגרת בשלב של צמיחה מאומצת. היא הצליחה להגדיל משמעותית 
+            את היקף הפעילות, אך מתקשה לתרגם את הצמיחה לשיפור ברווחיות. 
+            אסטרטגיית המימון שנבחרה (מינוף גבוה) הגדילה את הסיכון הפיננסי ושחקה את הרווח הנקי.
+        </p>
+        <p>
+            האתגר העיקרי העומד בפני החברה הוא לשפר את הרווחיות התפעולית - 
+            בין אם באמצעות שיפור כוח התמחור, התייעלות בעלויות, או שילוב של השניים - 
+            על מנת להצדיק את ההשקעות שבוצעו ואת החוב שנלקח.
+        </p>
+    </div>
+</div>
+
+<div style="text-align: center; margin-top: 40px; padding: 20px; color: #64748b; border-top: 2px solid #e2e8f0;">
+    <p>תרגיל זה מבוסס על החומר הנלמד בקורס "סוגיות נבחרות בחשבונאות" - סמסטר 2026א</p>
+    <p>📚 בהצלחה בלימודים!</p>
+</div>
+
+</body>
+</html>
