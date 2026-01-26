@@ -1,0 +1,948 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ניתוח דוחות כספיים - מסייע לימודי</title>
+
+    <!-- Google Fonts: Heebo (Modern Hebrew) + Rubik (Rounded, Friendly) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;700;800&family=Rubik:wght@300;400;500;700&display=swap"
+        rel="stylesheet">
+
+    <style>
+        /* 
+         * DESIGN SYSTEM
+         */
+        :root {
+            --primary: #0f172a;
+            /* Navy Blue */
+            --primary-light: #1e293b;
+            --secondary: #3b82f6;
+            /* Bright Blue */
+            --accent: #eab308;
+            /* Gold */
+            --bg-body: #f8fafc;
+            --bg-card: #ffffff;
+            --text-main: #1e293b;
+            --text-muted: #64748b;
+            --border: #e2e8f0;
+            --success: #10b981;
+            --danger: #ef4444;
+            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        }
+
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Heebo', sans-serif;
+            background-color: var(--bg-body);
+            color: var(--text-main);
+            line-height: 1.6;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* HEADER */
+        header {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+            color: white;
+            padding: 2rem 1.5rem;
+            text-align: center;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        header h1 {
+            font-family: 'Rubik', sans-serif;
+            font-weight: 700;
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        header p {
+            color: #bdc3c7;
+            /* Lighter grey for contrast on dark bg */
+            font-size: 1.1rem;
+        }
+
+        /* NAVIGATION TABS */
+        nav {
+            background: white;
+            padding: 0.5rem 1rem;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .nav-btn {
+            background: transparent;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            font-family: 'Heebo', sans-serif;
+            font-weight: 500;
+            color: var(--text-muted);
+            cursor: pointer;
+            border-radius: 8px;
+            transition: all 0.2s;
+        }
+
+        .nav-btn:hover {
+            background-color: #f1f5f9;
+            color: var(--primary);
+        }
+
+        .nav-btn.active {
+            background-color: var(--primary);
+            color: white;
+            box-shadow: 0 2px 8px rgba(15, 23, 42, 0.2);
+        }
+
+        /* MAIN CONTENT */
+        main {
+            flex: 1;
+            max-width: 1200px;
+            width: 100%;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+
+        .view-section {
+            display: none;
+            /* Hidden by default */
+            animation: fadeIn 0.4s ease-out;
+        }
+
+        .view-section.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* CARDS */
+        .card {
+            background: var(--bg-card);
+            border-radius: 12px;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border);
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .card h2 {
+            color: var(--primary);
+            font-family: 'Rubik', sans-serif;
+            margin-bottom: 1rem;
+            border-bottom: 2px solid #f1f5f9;
+            padding-bottom: 0.5rem;
+        }
+
+        /* DICTIONARY STYLES */
+        .search-container {
+            margin-bottom: 2rem;
+            position: relative;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 1rem 1.5rem;
+            border: 2px solid var(--border);
+            border-radius: 12px;
+            font-size: 1.1rem;
+            font-family: 'Heebo', sans-serif;
+            transition: border-color 0.2s;
+        }
+
+        .search-input:focus {
+            outline: none;
+            border-color: var(--secondary);
+        }
+
+        .ratio-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .ratio-card {
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 1.5rem;
+            transition: transform 0.2s, box-shadow 0.2s;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .ratio-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            border-color: var(--secondary);
+        }
+
+        .ratio-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            width: 4px;
+            background-color: var(--secondary);
+            border-radius: 0 4px 4px 0;
+        }
+
+        .ratio-name {
+            font-weight: 700;
+            font-size: 1.1rem;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .ratio-formula {
+            font-family: 'Courier New', monospace;
+            background: #f1f5f9;
+            padding: 0.5rem;
+            border-radius: 6px;
+            font-size: 0.9rem;
+            color: var(--primary-light);
+            margin-bottom: 1rem;
+            direction: ltr;
+            /* Formulas often look better LTR */
+            text-align: right;
+        }
+
+        /* Force RTL inside formula container but keep text alignment readable */
+        .ratio-formula[dir="rtl"] {
+            direction: rtl;
+        }
+
+        .ratio-tag {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            background: #e0f2fe;
+            color: #0369a1;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+
+        /* MODAL */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(15, 23, 42, 0.6);
+            backdrop-filter: blur(4px);
+            z-index: 1000;
+            display: none;
+            justify-content: center;
+            align-items: center;
+            padding: 1rem;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .modal-overlay.open {
+            display: flex;
+            opacity: 1;
+        }
+
+        .modal-content {
+            background: white;
+            width: 100%;
+            max-width: 600px;
+            border-radius: 16px;
+            padding: 2rem;
+            position: relative;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 1rem;
+            left: 1rem;
+            /* RTL flip */
+            background: transparent;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--text-muted);
+        }
+
+        /* CASE STUDY STYLES */
+        .case-selector {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            margin-bottom: 2rem;
+        }
+
+        .case-btn {
+            flex: 1;
+            min-width: 150px;
+            padding: 1rem;
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            text-align: center;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .case-btn:hover {
+            border-color: var(--secondary);
+            color: var(--secondary);
+        }
+
+        .case-btn.active {
+            background: var(--secondary);
+            color: white;
+            border-color: var(--secondary);
+        }
+
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 1.5rem;
+            font-size: 0.95rem;
+            white-space: nowrap;
+        }
+
+        /* Table responsive wrapper */
+        .table-responsive {
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        .data-table th,
+        .data-table td {
+            padding: 0.75rem 1rem;
+            border-bottom: 1px solid var(--border);
+            text-align: right;
+        }
+
+        .data-table th {
+            background-color: #f8fafc;
+            color: var(--primary-light);
+            font-weight: 600;
+        }
+
+        .data-table tr:hover {
+            background-color: #f1f5f9;
+        }
+
+        /* WACC CALCULATOR */
+        .calc-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .input-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .input-group label {
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: var(--text-muted);
+        }
+
+        .input-group input {
+            padding: 0.75rem;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            font-family: 'Heebo', sans-serif;
+            font-size: 1rem;
+        }
+
+        .result-box {
+            background: var(--primary);
+            color: white;
+            padding: 2rem;
+            border-radius: 12px;
+            text-align: center;
+            margin-top: 2rem;
+        }
+
+        .result-value {
+            font-size: 2.5rem;
+            font-weight: 700;
+            font-family: 'Rubik', sans-serif;
+            color: var(--accent);
+        }
+
+        /* MOBILE OPTIMIZATIONS */
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 1.5rem;
+            }
+
+            .nav-btn {
+                padding: 0.5rem;
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <h1 id="course-title">טוען נתונים...</h1>
+        <p id="course-desc">אנא המתן</p>
+    </header>
+
+    <nav>
+        <button class="nav-btn active" onclick="switchView('dictionary')">📚 מילון יחסים</button>
+        <button class="nav-btn" onclick="switchView('cases')">📊 מקרי בוחן</button>
+        <button class="nav-btn" onclick="switchView('wacc')">🧮 מחשבון WACC</button>
+        <button class="nav-btn" onclick="switchView('theory')">💡 תיאוריה</button>
+    </nav>
+
+    <main>
+        <!-- DICTIONARY VIEW -->
+        <section id="view-dictionary" class="view-section active">
+            <div class="search-container">
+                <input type="text" id="ratio-search" class="search-input"
+                    placeholder="חפש יחס פיננסי (למשל: יחס שוטף, מלאי...)" oninput="filterRatios()">
+            </div>
+
+            <div id="ratio-list" class="ratio-grid">
+                <!-- Ratios injected here via JS -->
+            </div>
+        </section>
+
+        <!-- CASE STUDIES VIEW -->
+        <section id="view-cases" class="view-section">
+            <div class="case-selector" id="case-buttons">
+                <!-- Case buttons injected here -->
+            </div>
+
+            <div id="case-content">
+                <div class="card">
+                    <p style="text-align: center; color: var(--text-muted);">בחר מקרה בוחן מהתפריט למעלה להצגת הנתונים.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- WACC CALCULATOR VIEW -->
+        <section id="view-wacc" class="view-section">
+            <div class="card">
+                <h2>מחשבון WACC</h2>
+                <div class="calc-grid">
+                    <div class="input-group">
+                        <label>ריבית חסרת סיכון (Rf in %)</label>
+                        <input type="number" id="wacc-rf" value="1.923" step="0.01">
+                    </div>
+                    <div class="input-group">
+                        <label>ביטא (Beta)</label>
+                        <input type="number" id="wacc-beta" value="1.2" step="0.01">
+                    </div>
+                    <div class="input-group">
+                        <label>תשואת שוק (Rm in %)</label>
+                        <input type="number" id="wacc-rm" value="8.0" step="0.01">
+                    </div>
+                    <div class="input-group">
+                        <label>מס חברות (Tax in %)</label>
+                        <input type="number" id="wacc-tax" value="23" step="1">
+                    </div>
+                    <div class="input-group">
+                        <label>שווי הון עצמי (E)</label>
+                        <input type="number" id="wacc-e" value="1000">
+                    </div>
+                    <div class="input-group">
+                        <label>שווי חוב פיננסי (D)</label>
+                        <input type="number" id="wacc-d" value="500">
+                    </div>
+                    <div class="input-group">
+                        <label>עלות החוב (Kd in %)</label>
+                        <input type="number" id="wacc-kd" value="4.5" step="0.1">
+                    </div>
+                </div>
+                <button class="nav-btn active" style="width: 100%; justify-content: center;"
+                    onclick="calculateWACC()">חשב WACC</button>
+
+                <div class="result-box">
+                    <p>WACC (מחיר ההון המשוקלל)</p>
+                    <div class="result-value" id="wacc-result">--%</div>
+                    <p id="ke-result" style="margin-top:0.5rem; font-size:0.9rem; opacity:0.8;">Ke (מחיר ההון העצמי):
+                        --%</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- THEORY VIEW -->
+        <section id="view-theory" class="view-section">
+            <div class="card">
+                <h2>דוגמאות מההרצאות</h2>
+                <div id="theory-list"></div>
+            </div>
+        </section>
+    </main>
+
+    <!-- POPUP MODAL -->
+    <div class="modal-overlay" id="info-modal" onclick="closeModal(event)">
+        <div class="modal-content">
+            <button class="close-modal"
+                onclick="document.getElementById('info-modal').classList.remove('open')">&times;</button>
+            <h2 id="modal-title">כותרת</h2>
+            <div id="modal-body">תוכן</div>
+        </div>
+    </div>
+
+    <!-- DATA & LOGIC -->
+    <script>
+        // ==========================================
+        // DATA SOURCE
+        // ==========================================
+        const fullCourseData = {
+            metadata: {
+                courseName: "ניתוח דוחות כספיים והערכת שווי חברות (FSA CLB - 2026A)",
+                lecturer: "ד״ר שי צבאן",
+                term: "סמסטר א׳ 2026",
+                description: "מאגר מידע מלא הכולל תיאוריה, יחסים פיננסיים, ופתרונות מלאים לתרגילי הערכת שווי (DCF)."
+            },
+            ratiosDictionary: {
+                liquidity: [
+                    { id: "curr_ratio", name: "יחס שוטף (Current Ratio)", formula: "נכסים שוטפים / התחייבויות שוטפות", benchmark: "מעל 1 נחשב סביר. נמוך מ-1 מעיד על קשיי נזילות פוטנציאליים.", nuance: "אם היחס < 1, נטילת הלוואה לזמן קצר (הוספת מזומן וחוב) תשפר את היחס." },
+                    { id: "quick_ratio", name: "יחס מהיר (Quick Ratio)", formula: "(נכסים שוטפים - מלאי) / התחייבויות שוטפות", benchmark: "נמוך מ-1 עשוי להיות בעייתי אם המלאי קשה למימוש.", nuance: "בחברות עם מלאי 'בטוח' (כמו Nvidia) יחס נמוך פחות מדאיג מאשר בחברות אופנה." },
+                    { id: "cash_ratio", name: "יחס מזומן (Cash Ratio)", formula: "מזומנים ושווי מזומנים / התחייבויות שוטפות", description: "היחס השמרני ביותר." },
+                    { id: "ocf_ratio", name: "יחס תזרים מפעילות שוטפת", formula: "תזרים מזומנים מפעילות שוטפת / התחייבויות שוטפות", benchmark: "מעל 100% מעיד על יכולת כיסוי מלאה מהפעילות השוטפת." }
+                ],
+                stability: [
+                    { id: "debt_equity", name: "יחס חוב להון עצמי (Debt to Equity)", formula: "סך התחייבויות / הון עצמי", description: "מודד מינוף פיננסי. ככל שגבוה יותר - הסיכון גבוה יותר." },
+                    { id: "tie", name: "יחס כיסוי ריבית (Times Interest Earned)", formula: "EBIT (רווח תפעולי) / הוצאות מימון", benchmark: "גבוה יותר = בטוח יותר. נמוך מ-1 מעיד על סכנה מיידית." },
+                    { id: "dscr", name: "יחס שירות חוב (DSCR)", formula: "NOI (הכנסה תפעולית נקייה) / (תשלומי ריבית + תשלומי קרן)", description: "האם החברה מייצרת מספיק מזומן כדי לשרת את החוב כולל הקרן." }
+                ],
+                efficiency: [
+                    { id: "inv_turnover", name: "מחזור המלאי", formula: "עלות המכר / ממוצע מלאי", description: "מספר הפעמים בשנה שהמלאי מתחדש. גבוה = יעיל." },
+                    { id: "days_inv", name: "ימי מלאי", formula: "365 / מחזור המלאי", description: "כמה זמן לוקח למכור את המלאי." },
+                    { id: "days_ar", name: "ימי לקוחות (גבייה)", formula: "365 / (מכירות / ממוצע לקוחות)", description: "כמה זמן לוקח לגבות כסף." },
+                    { id: "days_ap", name: "ימי ספקים (אשראי)", formula: "365 / (קניות / ממוצע ספקים)", description: "כמה זמן החברה מעכבת תשלום לספקים. ימי ספקים ארוכים = מימון חינם (יעיל)." },
+                    { id: "ccc", name: "מחזור המרת המזומן (CCC)", formula: "ימי מלאי + ימי לקוחות - ימי ספקים", description: "הזמן שעובר מרכישת חומר הגלם ועד קבלת המזומן מהלקוח." }
+                ],
+                profitability: [
+                    { id: "gross_margin", name: "שיעור רווח גולמי", formula: "רווח גולמי / מכירות", drivers: "מושפע מכוח מיקוח (קמעונאות) או יעילות ייצור (תעשייה)." },
+                    { id: "oper_margin", name: "שיעור רווח תפעולי", formula: "רווח תפעולי / מכירות", drivers: "כולל הוצאות שיווק, הנהלה וכלליות. מושפע ממותג, מיקום סניפים ושכר." }
+                ]
+            },
+            complexCaseStudies: [
+                {
+                    id: "electro_global",
+                    title: "אלקטרוניקה גלובל (תרגיל מסה 2)",
+                    description: "ניתוח יחסים מלא לשנים 2024-2025 כולל מסקנות.",
+                    rawBalanceSheet: {
+                        years: [2024, 2025],
+                        currentAssets: [260000, 315000],
+                        currentLiabilities: [130000, 188000],
+                        inventory: [125000, 180000],
+                        cash: [68000, 42000],
+                        totalAssets: [470000, 570000],
+                        totalEquity: [208000, 225000],
+                        totalLiabilities: [262000, 345000]
+                    },
+                    rawPnL: {
+                        years: [2024, 2025],
+                        sales: [820000, 980000],
+                        cogs: [598600, 735000],
+                        grossProfit: [221400, 245000],
+                        ebit: [64400, 55000],
+                        interestExp: [12500, 18000],
+                        netIncome: [42000, 30000],
+                        ocf: [53000, 2000]
+                    },
+                    calculatedRatios: [
+                        { name: "יחס שוטף", values: ["2.00", "1.68"], trend: "ירידה" },
+                        { name: "יחס מהיר", values: ["1.04", "0.72"], trend: "ירידה (מתחת ל-1)" },
+                        { name: "יחס חוב להון", values: ["1.26", "1.53"], trend: "עלייה בסיכון" },
+                        { name: "ימי מלאי", values: ["76.2", "75.7"], trend: "יציבות" },
+                        { name: "מחזור המרת המזומן", values: ["62.9 ימים", "64.5 ימים"], trend: "הרעה (עלייה)" }
+                    ],
+                    conclusion: "כל יחסי הנזילות והרווחיות הורעו. יחס כיסוי הריבית ירד מ-5.15 ל-3.05. החברה הגדילה מכירות אך הרווחיות נשחקה והמינוף גדל."
+                },
+                {
+                    id: "yitzhak_hagever",
+                    title: "יצחק הגבר בע״מ (תרגיל DCF מלא)",
+                    description: "הערכת שווי עם התאמות מיוחדות.",
+                    inputs: {
+                        projectionYears: [2024, 2025, 2026, 2027, 2028],
+                        baseEBIT: [340000, 370000, 390000, 450000, 480000],
+                        adjustments: [
+                            { name: "הכנסות פרויקט נוסף", values: [0, 0, 0, 280000, 120000], note: "נרשם חשבונאית ב-27/28, כסף התקבל ב-27" },
+                            { name: "הוצאות אחזקה (תיקון)", values: [0, 0, -90000, -90000, -90000] },
+                            { name: "הוצאות פחת (תיקון לרווח)", values: [-30000, -30000, -30000, -70000, -70000], note: "לא נרשמו במקור" }
+                        ],
+                        taxRate: 0.23,
+                        capex: [-110000, -110000, -110000, -110000, -75000],
+                        wcChanges: [-21600, -24192, -27095, 7586, 7359],
+                        wacc: 0.1054
+                    },
+                    finalCalculation: {
+                        npvForecast: 814249,
+                        npvTerminal: 1600283,
+                        financialAssets: 320000,
+                        nonOpAssets: 180000,
+                        financialDebt: -410000,
+                        finalValue: 2504532
+                    }
+                },
+                {
+                    id: "quick_sausage",
+                    title: "הנקניק המהיר",
+                    description: "תרגיל DCF עם אינפלציה והתאמות מחירים (10%-20%).",
+                    inputs: {},
+                    valuation: {
+                        npvForecast: 3929567,
+                        npvTerminal: 3815257,
+                        netDebtAdjustments: -72000,
+                        totalValue: 7672824
+                    }
+                },
+                {
+                    id: "adi_ben_hayun",
+                    title: "עדי בן חיון",
+                    description: "שינוי מס וניתוח רגישות.",
+                    nuance: "שיעור מס: 30% בשנים 2026-2027, ואז יורד ל-25% מ-2028 ואילך.",
+                    finalValuation: 3316270
+                },
+                {
+                    id: "elizabeth",
+                    title: "אליזבת׳",
+                    description: "חישוב Beta ו-WACC.",
+                    waccResult: 3.40
+                }
+            ],
+            theoryExamples: [
+                {
+                    topic: "שיפור יחס שוטף באופן מלאכותי",
+                    question: "היחס השוטף הוא 0.4. החברה לוקחת הלוואה ומפקידה בעו״ש. מה קורה ליחס?",
+                    answer: "היחס עולה. (הוספת סכום זהה למונה ולמכנה בשבר הקטן מ-1 מקרבת אותו ל-1, כלומר מגדילה אותו). [מקור: הרצאה 1-2]"
+                },
+                {
+                    topic: "רווחיות בענף המזון",
+                    comparison: {
+                        ramiLevy: { grossMargin: "23.7%", strategy: "דיסקאונט" },
+                        shufersal: { grossMargin: "28.3%", strategy: "מותג פרטי ונדל״ן" },
+                        tivTaam: { grossMargin: "32.5%", strategy: "פרימיום / לא כשר / שבת" }
+                    },
+                    insight: "מודל עסקי שונה מכתיב שולי רווח שונים. רמי לוי מפצה על רווח נמוך במחזור גבוה."
+                },
+                {
+                    topic: "תשואת דיבידנד חריגה",
+                    scenario: "חברה מציגה תשואת דיבידנד של 8%.",
+                    analysis: "או שהיא 'פרה חולבת' יציבה מאוד, או (וזה הסיכון) שמחיר המניה קרס עקב חשש לפשיטת רגל, מה שהקפיץ את התשואה טכנית."
+                }
+            ]
+        };
+
+        // ==========================================
+        // APP LOGIC
+        // ==========================================
+
+        // --- Initialization ---
+        document.addEventListener('DOMContentLoaded', () => {
+            // Render Header Data
+            document.getElementById('course-title').textContent = fullCourseData.metadata.courseName;
+            document.getElementById('course-desc').textContent = `${fullCourseData.metadata.lecturer} | ${fullCourseData.metadata.term} | ${fullCourseData.metadata.description}`;
+
+            // Initialize Views
+            renderDictionary();
+            renderTheory();
+            renderCaseButtons();
+        });
+
+        // --- Navigation ---
+        function switchView(viewId) {
+            // Hide all views
+            document.querySelectorAll('.view-section').forEach(el => el.classList.remove('active'));
+            // Remove active class from buttons
+            document.querySelectorAll('.nav-btn').forEach(el => el.classList.remove('active'));
+
+            // Show selected view
+            document.getElementById(`view-${viewId}`).classList.add('active');
+
+            // Highlight button (simple lookup based on text or specific ID matching might be better, but this simple index logic works if order doesn't change)
+            // Better: find button by onClick content
+            const btnIndex = ['dictionary', 'cases', 'wacc', 'theory'].indexOf(viewId);
+            if (btnIndex >= 0) {
+                document.querySelectorAll('.nav-btn')[btnIndex].classList.add('active');
+            }
+        }
+
+        // --- Dictionary Logic ---
+        function renderDictionary() {
+            const container = document.getElementById('ratio-list');
+            container.innerHTML = '';
+
+            const categories = Object.keys(fullCourseData.ratiosDictionary);
+
+            categories.forEach(cat => {
+                fullCourseData.ratiosDictionary[cat].forEach(ratio => {
+                    const card = document.createElement('div');
+                    card.className = 'ratio-card';
+                    card.dataset.name = ratio.name; // For search
+                    card.onclick = () => openModal(ratio.name, formatRatioDetails(ratio));
+
+                    const catName = getFriendlyCatName(cat);
+
+                    card.innerHTML = `
+                        <div class="ratio-name">${ratio.name}</div>
+                        <span class="ratio-tag">${catName}</span>
+                    `;
+                    container.appendChild(card);
+                });
+            });
+        }
+
+        function formatRatioDetails(ratio) {
+            let html = `<div class="ratio-formula">${ratio.formula}</div>`;
+            if (ratio.benchmark) html += `<p><strong>טווח נורמלי:</strong> ${ratio.benchmark}</p>`;
+            if (ratio.description) html += `<p>${ratio.description}</p>`;
+            if (ratio.nuance) html += `<div style="margin-top:1rem; padding:1rem; background:#fff3cd; border-radius:8px;">💡 <strong>דגש:</strong> ${ratio.nuance}</div>`;
+            return html;
+        }
+
+        function getFriendlyCatName(cat) {
+            const map = {
+                liquidity: "נזילות",
+                stability: "איתנות פיננסית",
+                efficiency: "יעילות תפעולית",
+                profitability: "רווחיות"
+            };
+            return map[cat] || cat;
+        }
+
+        function filterRatios() {
+            const term = document.getElementById('ratio-search').value.toLowerCase();
+            const cards = document.querySelectorAll('.ratio-card');
+
+            cards.forEach(card => {
+                const name = card.dataset.name.toLowerCase();
+                if (name.includes(term)) {
+                    card.style.display = 'block';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
+
+        // --- Theory Logic ---
+        function renderTheory() {
+            const container = document.getElementById('theory-list');
+            fullCourseData.theoryExamples.forEach(item => {
+                const div = document.createElement('div');
+                div.style.marginBottom = '2rem';
+                div.style.borderBottom = '1px solid var(--border)';
+                div.style.paddingBottom = '1rem';
+
+                let content = `<h3>📌 ${item.topic}</h3>`;
+
+                if (item.question) {
+                    content += `<p><strong>שאלה:</strong> ${item.question}</p>`;
+                    content += `<p style="color:var(--success);"><strong>תשובה:</strong> ${item.answer}</p>`;
+                } else if (item.comparison) {
+                    content += `<p><strong>השוואה ענפית:</strong></p><ul>`;
+                    // dynamic loop over comparison keys
+                    for (const [comp, data] of Object.entries(item.comparison)) {
+                        content += `<li><strong>${comp}:</strong> ${data.grossMargin} (${data.strategy})</li>`;
+                    }
+                    content += `</ul>`;
+                    if (item.insight) content += `<p style="margin-top:0.5rem"><em>${item.insight}</em></p>`;
+                } else if (item.scenario) {
+                    content += `<p>${item.scenario}</p><p><strong>ניתוח:</strong> ${item.analysis}</p>`;
+                }
+
+                div.innerHTML = content;
+                container.appendChild(div);
+            });
+        }
+
+        // --- Case Study Buttons ---
+        function renderCaseButtons() {
+            const container = document.getElementById('case-buttons');
+            fullCourseData.complexCaseStudies.forEach(study => {
+                const btn = document.createElement('button');
+                btn.className = 'case-btn';
+                btn.textContent = study.title.split('(')[0]; // Show short title
+                btn.onclick = () => loadCaseStudy(study.id, btn);
+                container.appendChild(btn);
+            });
+        }
+
+        function loadCaseStudy(id, clickedBtn) {
+            // Active state
+            document.querySelectorAll('.case-btn').forEach(b => b.classList.remove('active'));
+            clickedBtn.classList.add('active');
+
+            const study = fullCourseData.complexCaseStudies.find(s => s.id === id);
+            const container = document.getElementById('case-content');
+
+            let html = `<div class="card">
+                <h2>${study.title}</h2>
+                <p>${study.description}</p>
+            </div>`;
+
+            // Logic to display different types of case data (tables vs text)
+            // Just a basic JSON dump visualization for now to ensure data is there, detailed tables to follow in next steps
+
+            if (study.rawBalanceSheet) {
+                html += generateElectroTable(study);
+            } else if (study.id === 'yitzhak_hagever') {
+                html += generateYitzhakTable(study);
+            } else if (study.finalValuation) {
+                html += `<div class="result-box"><div class="result-value">${study.finalValuation.toLocaleString()}</div><p>שווי סופי</p></div>`;
+            } else {
+                html += `<div class="card"><pre style="direction:ltr; text-align:left;">NOT YET IMPLEMENTED VIEW FOR THIS CASE</pre></div>`;
+            }
+
+            container.innerHTML = html;
+        }
+
+        // Helper: Electro Table
+        function generateElectroTable(study) {
+            // Simplified rendering for initial step
+            let html = `<div class="card"><h3>מגמות עיקריות (2024-2025)</h3>
+            <table class="data-table"><thead><tr><th>יחס</th><th>2024</th><th>2025</th><th>מגמה</th></tr></thead><tbody>`;
+
+            study.calculatedRatios.forEach(r => {
+                html += `<tr>
+                    <td>${r.name}</td>
+                    <td>${r.values[0]}</td>
+                    <td>${r.values[1]}</td>
+                    <td style="color:${r.trend.includes('הרעה') || r.trend.includes('ירידה') ? 'red' : 'green'}">${r.trend}</td>
+                </tr>`;
+            });
+            html += `</tbody></table>
+            <p><strong>מסקנה:</strong> ${study.conclusion}</p>
+            </div>`;
+            return html;
+        }
+
+        // Helper: Yitzhak Table (Detailed)
+        function generateYitzhakTable(study) {
+            let html = `<div class="card">
+                <h3>נכסי תפעול (DCF)</h3>
+                <div class="table-responsive">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>שנה</th>
+                                ${study.inputs.projectionYears.map(y => `<th>${y}</th>`).join('')}
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>EBIT בסיס</td>
+                                ${study.inputs.baseEBIT.map(v => `<td>${v.toLocaleString()}</td>`).join('')}
+                            </tr>
+                            ${study.inputs.adjustments.map(adj => `
+                                <tr>
+                                    <td>${adj.name} <small style="display:block;color:#999;font-size:0.75rem;">${adj.note || ''}</small></td>
+                                    ${adj.values.map(v => `<td style="color:${v !== 0 ? 'var(--secondary)' : 'inherit'}">${v !== 0 ? v.toLocaleString() : '-'}</td>`).join('')}
+                                </tr>
+                            `).join('')}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="card" style="background: #f0fdf4; border-color: #bbf7d0;">
+                <h3>תוצאות הערכת השווי</h3>
+                <div class="calc-grid">
+                    <div>
+                        <small>PV תחזית</small>
+                        <div style="font-weight:bold; font-size:1.2rem;">${study.finalCalculation.npvForecast.toLocaleString()}</div>
+                    </div>
+                    <div>
+                        <small>PV טרמינלי</small>
+                        <div style="font-weight:bold; font-size:1.2rem;">${study.finalCalculation.npvTerminal.toLocaleString()}</div>
+                    </div>
+                    <div style="color:var(--secondary)">
+                        <small>נכסים פיננסיים (+)</small>
+                        <div style="font-weight:bold; font-size:1.2rem;">${study.finalCalculation.financialAssets.toLocaleString()}</div>
+                    </div>
+                     <div style="color:var(--danger)">
+                        <small>חוב פיננסי (-)</small>
+                        <div style="font-weight:bold; font-size:1.2rem;">${study.finalCalculation.financialDebt.toLocaleString()}</div>
+                    </div>
+                </div>
+                 <div class="result-box" style="margin-top:1rem;">
+                    <div class="result-value">${study.finalCalculation.finalValue.toLocaleString()} ₪</div>
+                    <p>שווי פעילות סופי (Equity Value)</p>
+                </div>
+            </div>`;
+            return html;
+        }
+
+        // --- WACC Calculator ---
+        function calculateWACC() {
+            const rf = parseFloat(document.getElementById('wacc-rf').value) / 100;
+            const beta = parseFloat(document.getElementById('wacc-beta').value);
+            const rm = parseFloat(document.getElementById('wacc-rm').value) / 100;
+            const tax = parseFloat(document.getElementById('wacc-tax').value) / 100;
+            const kd = parseFloat(document.getElementById('wacc-kd').value) / 100;
+            const E = parseFloat(document.getElementById('wacc-e').value);
+            const D = parseFloat(document.getElementById('wacc-d').value);
+
+            const V = E + D;
+
+            // CAPM
+            const ke = rf + beta * (rm - rf);
+
+            // WACC Formula: (E/V)*ke + (D/V)*kd*(1-t) 
+            const wacc = ((E / V) * ke) + ((D / V) * kd * (1 - tax));
+
+            document.getElementById('wacc-result').textContent = (wacc * 100).toFixed(2) + "%";
+            document.getElementById('ke-result').textContent = `Ke (מחיר ההון העצמי): ${(ke * 100).toFixed(2)}% | Kd נטו: ${(kd * (1 - tax) * 100).toFixed(2)}%`;
+        }
+
+        // --- Modal ---
+        function openModal(title, htmlContent) {
+            document.getElementById('modal-title').textContent = title;
+            document.getElementById('modal-body').innerHTML = htmlContent;
+            document.getElementById('info-modal').classList.add('open');
+        }
+
+        function closeModal(e) {
+            if (e.target.id === 'info-modal') {
+                document.getElementById('info-modal').classList.remove('open');
+            }
+        }
+    </script>
+</body>
+
+</html>
