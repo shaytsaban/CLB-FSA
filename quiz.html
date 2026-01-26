@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>אתגר האנליסטים - מבחן חשיבה</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;700;900&family=Rubik:wght@400;700&display=swap"
+        rel="stylesheet">
+
+    <style>
+        :root {
+            --primary: #0f172a;
+            --accent: #f59e0b;
+            --success: #10b981;
+            --error: #ef4444;
+            --bg: #f8fafc;
+            --card: #ffffff;
+        }
+
+        body {
+            font-family: 'Heebo', sans-serif;
+            background-color: var(--bg);
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 800px;
+            background: var(--card);
+            border-radius: 20px;
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* HEADER */
+        .header {
+            background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+            color: white;
+            padding: 2rem;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-family: 'Rubik', sans-serif;
+            margin: 0;
+            font-size: 2rem;
+        }
+
+        .header p {
+            color: #94a3b8;
+            margin-top: 0.5rem;
+        }
+
+        /* PROGRESS BAR */
+        .progress-container {
+            height: 6px;
+            background: #e2e8f0;
+            width: 100%;
+        }
+
+        .progress-bar {
+            height: 100%;
+            background: var(--accent);
+            width: 0%;
+            transition: width 0.3s ease;
+        }
+
+        /* CONTENT AREA */
+        .content {
+            padding: 2rem;
+            min-height: 400px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        /* START SCREEN */
+        .start-screen {
+            text-align: center;
+        }
+
+        .btn {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 1rem 2rem;
+            font-size: 1.2rem;
+            border-radius: 12px;
+            cursor: pointer;
+            font-family: 'Rubik', sans-serif;
+            transition: transform 0.2s, box-shadow 0.2s;
+            margin-top: 2rem;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+        }
+
+        /* QUESTION STYLES */
+        .question-card {
+            display: none;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .question-card.active {
+            display: block;
+        }
+
+        .category-tag {
+            display: inline-block;
+            background: #e0f2fe;
+            color: #0369a1;
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        .question-text {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 2rem;
+            line-height: 1.4;
+        }
+
+        .options-grid {
+            display: grid;
+            gap: 1rem;
+        }
+
+        .option-btn {
+            background: white;
+            border: 2px solid #e2e8f0;
+            padding: 1.25rem;
+            border-radius: 12px;
+            text-align: right;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-family: 'Heebo', sans-serif;
+            position: relative;
+        }
+
+        .option-btn:hover {
+            border-color: var(--primary);
+            background: #f8fafc;
+        }
+
+        /* FEEDBACK STATES */
+        .option-btn.correct {
+            border-color: var(--success);
+            background-color: #ecfdf5;
+            color: #065f46;
+        }
+
+        .option-btn.wrong {
+            border-color: var(--error);
+            background-color: #fef2f2;
+            color: #991b1b;
+            opacity: 0.7;
+        }
+
+        .feedback-box {
+            margin-top: 2rem;
+            padding: 1.5rem;
+            border-radius: 12px;
+            background: #f8fafc;
+            border-right: 4px solid var(--primary);
+            display: none;
+            animation: slideUp 0.3s ease;
+        }
+
+        .feedback-box h3 {
+            margin-top: 0;
+        }
+
+        /* ANIMATIONS */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* SCORE SCREEN */
+        .score-circle {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            background: var(--primary);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            font-weight: 900;
+            margin: 0 auto 2rem auto;
+            border: 8px solid var(--accent);
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+        <div class="header">
+            <h1>🧠 אתגר האנליסטים</h1>
+            <p>שאלות עומק בניתוח דוחות והערכת שווי - סמסטר א' 2026</p>
+        </div>
+
+        <div class="progress-container">
+            <div class="progress-bar" id="progress"></div>
+        </div>
+
+        <div class="content" id="app">
+            <!-- Dynamic Content Loaded Here -->
+        </div>
+    </div>
+
+    <script>
+        // ==========================================
+        // QUIZ DATA (Derived from Course nuances)
+        // ==========================================
+        const quizData = [
+            {
+                id: 1,
+                category: "נזילות וניהול הון חוזר",
+                question: "חברה א' מציגה יחס מהיר (Quick Ratio) של 0.6. האנליסט הזוטר טוען שיש סכנת נזילות מיידית כיוון שהיחס נמוך מ-1. באיזה מהמקרים הבאים האנליסט *טועה*?",
+                options: [
+                    { text: "לחברה יש המון רכוש קבוע שניתן למכור מהר.", correct: false },
+                    { text: "לחברה יש מלאי 'בטוח' וסחיר מאוד (כגון שבבים של Nvidia), שנחשב כמעט למזומן.", correct: true },
+                    { text: "לחברה יש הון עצמי גבוה מאוד.", correct: false },
+                    { text: "החברה חילקה דיבידנד בשנה החולפת.", correct: false }
+                ],
+                explanation: "יחס מהיר מנטרל את המלאי בהנחה שהוא נכס 'כבד'. אך בחברות עם מלאי סחיר ומבוקש (כמו Nvidia או קמעונאות מזון חזקה), המלאי הוא מקור נזילות מצוין, ויחס של 0.6 עשוי להיות תקין לחלוטין. הון עצמי ורכוש קבוע אינם נכסים שוטפים."
+            },
+            {
+                id: 2,
+                category: "הנדסה פיננסית",
+                question: "סמנכ״ל הכספים מבחין שהיחס השוטף הוא 0.4 (נמוך משמעותית מ-1). הוא מעוניין לשפר את היחס *טכנית* לפני הדוח השנתי, מבלי לייצר רווחים. מה עליו לעשות?",
+                options: [
+                    { text: "לפרוע הלוואה לזמן קצר באמצעות מזומן.", correct: false },
+                    { text: "לקחת הלוואה לזמן קצר ולהפקיד את הכסף בעו״ש.", correct: true },
+                    { text: "לרכוש מלאי נוסף באשראי ספקים.", correct: false },
+                    { text: "למכור רכוש קבוע בהפסד.", correct: false }
+                ],
+                explanation: "מתמטיקה של שברים: כאשר היחס קטן מ-1 (למשל 40/100), הוספת סכום זהה למונה ולמכנה (למשל +50 הלוואה לקופה / +50 התחייבות לבנק) תקרב את התוצאה ל-1 (90/150 = 0.6). היחס עלה מלאכותית!"
+            },
+            {
+                id: 3,
+                category: "הערכת שווי (DCF)",
+                question: "במקרה 'יצחק הגבר', נרשמה חשבונאית הכנסה מפרויקט בשנת 2028, אך הכסף בפועל התקבל בשנת 2027. בבואנו לבנות תזרים מזומנים מהוון (DCF), באיזו שנה נכלול את הסכום?",
+                options: [
+                    { text: "2028 (שנת ההכרה החשבונאית בדוח רווח והפסד).", correct: false },
+                    { text: "פורסים את הסכום שווה בשווה בין השנים.", correct: false },
+                    { text: "2027 (שנת קבלת המזומן).", correct: true },
+                    { text: "לא נכלול אותו כלל כי זה אירוע חד פעמי.", correct: false }
+                ],
+                explanation: "חוק ברזל ב-DCF: Cash is King. אנו מהוונים תזרימי מזומנים, לא רווח חשבונאי. לכן העיתוי הקובע הוא מועד כניסת הכסף לחשבון (2027)."
+            },
+            {
+                id: 4,
+                category: "WACC ומאקרו",
+                question: "הממשלה החליטה במפתיע *להוריד* את מס החברות מ-23% ל-15%. בהנחה ששאר הפרמטרים נותרים קבועים, מה יקרה טכנית ל-WACC (מחיר ההון המשוקלל)?",
+                options: [
+                    { text: "ה-WACC לא ישתנה כי המס השולי לא משפיע עליו.", correct: false },
+                    { text: "ה-WACC יירד, כי החברה נהיית רווחית יותר.", correct: false },
+                    { text: "ה-WACC יעלה, כי 'מגן המס' (Tax Shield) על החוב נשחק.", correct: true },
+                    { text: "ה-WACC יירד כי מחיר החוב יורד.", correct: false }
+                ],
+                explanation: "נוסחת WACC מכילה את הרכיב Kd * (1-t). כאשר t (המס) יורד, הביטוי (1-t) גדל => עלות החוב נטו עולה => ה-WACC כולו עולה. (הערה: שווי החברה עדיין עשוי לעלות כי התזרים הפנוי גדל יותר מהעלייה ב-WACC)."
+            },
+            {
+                id: 5,
+                category: "יעילות תפעולית",
+                question: "לחברה קמעונאית יש 'ימי ספקים' של 120 יום, בעוד הממוצע הענפי הוא 60 יום. הספקים אינם גובים ריבית פיגורים ואינם מפסיקים לספק סחורה. מה המסקנה?",
+                options: [
+                    { text: "החברה בקשיי נזילות חמורים ואינה מצליחה לשלם.", correct: false },
+                    { text: "זהו סימן חיובי ליעילות - החברה נהנית ממימון חינם (אשראי ספקים) ע״ח הספקים.", correct: true },
+                    { text: "החברה משלמת מהר מדי ולכן מאבדת כסף.", correct: false },
+                    { text: "ימי ספקים גבוהים מקטינים את התזרים מפעילות שוטפת.", correct: false }
+                ],
+                explanation: "בניגוד לאינטואיציה האישית (שבה חוב זה רע), בעסקים, דחיית תשלום ללא ריבית היא מעולה. זהו 'אשראי ספקים' המהווה מקור מימון זול ביותר (חינם) ומקטין את הצורך בהון חוזר יקר."
+            }
+        ];
+
+        // ==========================================
+        // APP LOGIC
+        // ==========================================
+        let currentQuestion = 0;
+        let score = 0;
+
+        function initApp() {
+            document.getElementById('app').innerHTML = `
+                <div class="start-screen">
+                    <div style="font-size: 4rem; margin-bottom: 1rem;">🎓</div>
+                    <h2>מוכנים לבחון את הידע שלכם?</h2>
+                    <p style="font-size: 1.2rem; color: #64748b; max-width: 500px; margin: 0 auto;">
+                        השאלון הזה אינו בודק זיכרון, אלא הבנה עמוקה של דילמות ניהוליות וניתוח דוחות.
+                    </p>
+                    <button class="btn" onclick="startQuiz()">התחל מבחן</button>
+                    <p style="margin-top:2rem;"><a href="index.html" style="color:#64748b; text-decoration:none;">חזור לדף הבית</a></p>
+                </div>
+            `;
+        }
+
+        function startQuiz() {
+            currentQuestion = 0;
+            score = 0;
+            renderQuestion();
+        }
+
+        function renderQuestion() {
+            const q = quizData[currentQuestion];
+            const progress = ((currentQuestion) / quizData.length) * 100;
+            document.getElementById('progress').style.width = `${progress}%`;
+
+            let html = `
+                <div class="question-card active">
+                    <span class="category-tag">${q.category}</span>
+                    <div class="question-text">${q.question}</div>
+                    
+                    <div class="options-grid" id="options-container">
+                        ${q.options.map((opt, i) => `
+                            <button class="option-btn" onclick="checkAnswer(${i})">${opt.text}</button>
+                        `).join('')}
+                    </div>
+
+                    <div class="feedback-box" id="feedback">
+                        <h3 id="feedback-title"></h3>
+                        <p id="feedback-text"></p>
+                        <button class="btn" id="next-btn" onclick="nextStep()" style="margin-top:1rem; width:100%;">המשך לשאלה הבאה</button>
+                    </div>
+                </div>
+            `;
+            document.getElementById('app').innerHTML = html;
+        }
+
+        function checkAnswer(selectedIndex) {
+            // Disable all buttons
+            const buttons = document.querySelectorAll('.option-btn');
+            buttons.forEach(btn => {
+                btn.disabled = true;
+                btn.style.cursor = 'default';
+            });
+
+            const q = quizData[currentQuestion];
+            const isCorrect = q.options[selectedIndex].correct;
+
+            // Highlight selected
+            if (isCorrect) {
+                buttons[selectedIndex].classList.add('correct');
+                score++;
+                showFeedback(true, "נכון מאוד! 👏", q.explanation);
+            } else {
+                buttons[selectedIndex].classList.add('wrong');
+                // Highlight the correct one
+                const correctIndex = q.options.findIndex(o => o.correct);
+                buttons[correctIndex].classList.add('correct');
+                showFeedback(false, "לא מדויק... 🧐", q.explanation);
+            }
+        }
+
+        function showFeedback(isCorrect, title, text) {
+            const fbBox = document.getElementById('feedback');
+            const fbTitle = document.getElementById('feedback-title');
+            const fbText = document.getElementById('feedback-text');
+            const nextBtn = document.getElementById('next-btn');
+
+            fbBox.style.display = 'block';
+            fbTitle.textContent = title;
+            fbTitle.style.color = isCorrect ? 'var(--success)' : 'var(--error)';
+            fbText.textContent = text;
+
+            if (currentQuestion === quizData.length - 1) {
+                nextBtn.textContent = "סיים מבחן וראה תוצאה";
+            }
+        }
+
+        function nextStep() {
+            currentQuestion++;
+            if (currentQuestion < quizData.length) {
+                renderQuestion();
+            } else {
+                showScore();
+            }
+        }
+
+        function showScore() {
+            const progress = 100;
+            document.getElementById('progress').style.width = `${progress}%`;
+
+            let message = "";
+            let emoji = "";
+            if (score === 5) { message = "שליטה מוחלטת בחומר! האנליסטים הבכירים גאים בך."; emoji = "🏆"; }
+            else if (score >= 3) { message = "ידע טוב מאוד, אך יש כמה ניואנסים שכדאי לחדד."; emoji = "👍"; }
+            else { message = "כדאי לחזור על החומר ועל הדקויות של סעיפי ה-DCF."; emoji = "📚"; }
+
+            document.getElementById('app').innerHTML = `
+                <div class="start-screen">
+                    <div class="score-circle">${score}/${quizData.length}</div>
+                    <h2>${message}</h2>
+                    <div style="font-size: 3rem; margin: 1rem;">${emoji}</div>
+                    <button class="btn" onclick="startQuiz()">נסה שוב</button>
+                    <button class="btn" style="background:#fff; color:#0f172a; border:2px solid #e2e8f0; margin-right:1rem;" onclick="location.href='index.html'">חזור למילון היחסים</button>
+                </div>
+            `;
+        }
+
+        // Initialize
+        initApp();
+
+    </script>
+</body>
+
+</html>
